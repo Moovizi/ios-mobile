@@ -11,5 +11,6 @@
 @interface TransportStepView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame stepTransport:(NSDictionary *)stepTransport;
+- (void)updateTheContent:(NSDictionary *)stepTransport;
 
 @end

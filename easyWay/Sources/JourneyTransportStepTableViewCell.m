@@ -8,11 +8,12 @@
 
 #import "JourneyTransportStepTableViewCell.h"
 #import "TransportStepView.h"
+#import "UIView+Additions.h"
 
 @interface JourneyTransportStepTableViewCell ()
 
 @property (nonatomic, strong) UIImageView *typeStepImage;
-//@property (nonatomic, strong) TransportStepView *transportView;
+@property (nonatomic, strong) TransportStepView *transportStepView;
 
 @end
 
@@ -30,13 +31,14 @@
         self.typeStepImage.image = [UIImage imageNamed:@"public_transport.png"];
         [self addSubview:self.typeStepImage];
         
-        //self.transportView = [TransportStepView alloc] initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+        self.transportStepView = [[TransportStepView alloc] initWithFrame:CGRectMake(self.typeStepImage.right + 10.0f, 10.0f, 300.0f, 20.0f)];
+        [self addSubview:self.transportStepView];
     }
     return self;
 }
 
 - (void)initContentCell:(NSDictionary *)stepTransport {
-    
+    [self.transportStepView updateTheContent:stepTransport];
 }
 
 @end

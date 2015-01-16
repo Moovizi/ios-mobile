@@ -10,6 +10,7 @@
 #import "UIView+Additions.h"
 #import "ColorFactory.h"
 #import "HexColor.h"
+#import "CircleView.h"
 
 @interface JourneyWalkingStepTableViewCell ()
 
@@ -32,7 +33,13 @@
         self.typeStepImage.image = [UIImage imageNamed:@"walking.png"];
         [self addSubview:self.typeStepImage];
         
-        self.walkingText = [[UILabel alloc] initWithFrame:CGRectMake(self.typeStepImage.right + 10.0f,
+        for (CGFloat posY = 3.0f; posY < self.contentView.height; posY += 5.0f) {
+            CircleView *circle = [[CircleView alloc] initWithFrame:CGRectMake(self.typeStepImage.right + 10.0f, posY, 3.0f, 3.0f)
+                                                             color:[ColorFactory blackTextColor]];
+            [self addSubview:circle];
+        }
+        
+        self.walkingText = [[UILabel alloc] initWithFrame:CGRectMake(self.typeStepImage.right + 20.0f,
                                                                     5.0f,
                                                                     self.contentView.width - 45.0f,
                                                                      20.0f)];
