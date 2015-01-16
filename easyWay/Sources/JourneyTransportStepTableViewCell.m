@@ -7,17 +7,36 @@
 //
 
 #import "JourneyTransportStepTableViewCell.h"
+#import "TransportStepView.h"
+
+@interface JourneyTransportStepTableViewCell ()
+
+@property (nonatomic, strong) UIImageView *typeStepImage;
+//@property (nonatomic, strong) TransportStepView *transportView;
+
+@end
 
 @implementation JourneyTransportStepTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
+
+- (instancetype)init
+{
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JourneyTransportStepCell"];
+    if (self) {
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        self.typeStepImage = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 15.0f, 15.0f, 15.0f)];
+        self.typeStepImage.contentMode = UIViewContentModeScaleAspectFit;
+        self.typeStepImage.image = [UIImage imageNamed:@"public_transport.png"];
+        [self addSubview:self.typeStepImage];
+        
+        //self.transportView = [TransportStepView alloc] initWithFrame:CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    }
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)initContentCell:(NSDictionary *)stepTransport {
+    
 }
 
 @end

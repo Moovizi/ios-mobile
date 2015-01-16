@@ -10,4 +10,6 @@
 
 @interface JourneyTransportStepTableViewCell : UITableViewCell
 
+- (void)initContentCell:(NSDictionary *)stepTransport;
+
 @end

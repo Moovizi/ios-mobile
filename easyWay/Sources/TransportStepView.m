@@ -13,6 +13,7 @@
 
 @interface TransportStepView ()
 
+@property (nonatomic, strong) NSDictionary *stepTransport;
 @property (nonatomic, strong) UILabel *transportType;
 @property (nonatomic, strong) UILabel *lineCode;
 

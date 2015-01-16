@@ -71,6 +71,14 @@ static const BOOL isMapFullScreen = YES;
     self.journeySummary.top = self.mapView.bottom;
     self.stepsTableView.top = self.journeySummary.bottom;
     self.stepsTableView.height = self.view.height - self.mapView.height - self.journeySummary.height;
+    
+    if ([self.stepsTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.stepsTableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([self.stepsTableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self.stepsTableView setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 
 #pragma mark - LoadView methods
@@ -177,9 +185,9 @@ static const BOOL isMapFullScreen = YES;
                 TransportStepView *transportStepView = [[TransportStepView alloc] initWithFrame:CGRectMake(typePosX, typePosY, 300.0f, 20.0f)
                                                                                   stepTransport:section];
                 if (transportStepView.right > stepsView.width) {
+                    typePosX = 0.0f;
                     typePosY += 25.0f;
                     stepsView.height += 25.0f;
-                    typePosX = 0.0f;
                     transportStepView.left = typePosX;
                     transportStepView.top = typePosY;
                 }
@@ -233,7 +241,16 @@ static const BOOL isMapFullScreen = YES;
 #pragma mark - UITableView Datasource
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70.0f;
+    CGFloat height;
+    NSDictionary *section = [self.sections objectAtIndex:indexPath.row];
+    if ([[section objectForKey:@"type"] isEqualToString:@"street_network"] ||
+        [[section objectForKey:@"type"] isEqualToString:@"transfer"]) {
+        height = 50.0f;
+    }
+    else if ([[section objectForKey:@"type"] isEqualToString:@"public_transport"]) {
+        height = 70.0f;
+    }
+    return height;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -254,18 +271,13 @@ static const BOOL isMapFullScreen = YES;
     }
 }
 
-- (UITableViewCell *)cellWalkingStepForSection:(NSDictionary *)section walkingType:(kWalkingType)walkingType {
+- (UITableViewCell *)cellWalkingStepForSection:(NSDictionary *)section {
     
     JourneyWalkingStepTableViewCell *cell = [self.stepsTableView dequeueReusableCellWithIdentifier:@"JourneyWalkingStepCell"];
     if (cell == nil) {
         cell = [[JourneyWalkingStepTableViewCell alloc] init];
     }
-    if (walkingType == kTransfer) {
-        cell.textLabel.text = @"CORRESPONDANCE";
-    }
-    else {
-        cell.textLabel.text = @"MARCHER VERS";
-    }
+    [cell initContentCell:section];
     return cell;
 }
 
@@ -275,7 +287,7 @@ static const BOOL isMapFullScreen = YES;
     if (cell == nil) {
         cell = [[JourneyTransportStepTableViewCell alloc] init];
     }
-    cell.textLabel.text = @"TAKE THE LINE";
+    [cell initContentCell:section];
     return cell;
 }
 
@@ -283,11 +295,9 @@ static const BOOL isMapFullScreen = YES;
     UITableViewCell *cell;
     
     NSDictionary *section = [self.sections objectAtIndex:indexPath.row];
-    if ([[section objectForKey:@"type"] isEqualToString:@"street_network"]) {
-        cell = [self cellWalkingStepForSection:section walkingType:kWalking];
-    }
-    else  if ([[section objectForKey:@"type"] isEqualToString:@"transfer"]) {
-        cell = [self cellWalkingStepForSection:section walkingType:kTransfer];
+    if ([[section objectForKey:@"type"] isEqualToString:@"street_network"] ||
+        [[section objectForKey:@"type"] isEqualToString:@"transfer"]) {
+        cell = [self cellWalkingStepForSection:section];
     }
     else if ([[section objectForKey:@"type"] isEqualToString:@"public_transport"]) {
         cell = [self cellTransportStepForSection:section];
