@@ -422,22 +422,13 @@ static const BOOL isCurrentLocation = YES;
 #pragma mark - UITextField delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ((textField.tag != isCurrentLocation &&
-        textField == self.startField &&
-        self.startGoogleObject == nil)
-        ||
-        (textField.tag != isCurrentLocation &&
-         textField == self.endField &&
-         self.endGoogleObject == nil)) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sélection d'adresse"
-                                                            message:@"Vous devez sélectionner une adresse ou vider le champs"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-            return NO;
+    if (textField.tag != isCurrentLocation
+        && ((textField == self.startField &&
+             self.startGoogleObject == nil)
+            || (textField == self.endField &&
+                self.endGoogleObject == nil) )) {
+        textField.text = @"";
     }
-
     [textField resignFirstResponder];
     return YES;
 }

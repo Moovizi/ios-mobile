@@ -22,8 +22,7 @@
 
 @implementation JourneyWalkingStepTableViewCell
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JourneyWalkingStepCell"];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;

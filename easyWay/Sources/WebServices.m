@@ -55,8 +55,6 @@
             [self.delegate GEToperationDone:requestType response:responseObject];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"EROR = %@", error);
-        NSLog(@"ANSWER = %@", operation.responseString);
         if ([self.delegate respondsToSelector:@selector(requestFailed:error:)]) {
             [self.delegate requestFailed:requestType error:error];
         }
