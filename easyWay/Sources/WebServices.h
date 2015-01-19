@@ -1,6 +1,6 @@
 //
 //  WebServices.h
-//  easyWay
+//  Moovizi
 //
 //  Created by Tchikovani on 26/12/2014.
 //  Copyright (c) 2014 Tchikovani. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  TransportStepView.h
-//  easyWay
+//  Moovizi
 //
 //  Created by Tchikovani on 15/01/2015.
 //  Copyright (c) 2015 Tchikovani. All rights reserved.

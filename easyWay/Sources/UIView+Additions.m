@@ -1,9 +1,9 @@
 //
 //  UIView+Additions.m
-//  PrettyAndGoPrestataire
+//  Moovizi
 //
-//  Created by dev on 04/11/14.
-//  Copyright (c) 2014 EkkoTime. All rights reserved.
+//  Created by Tchikovani on 16/01/2015.
+//  Copyright (c) 2015 Tchikovani. All rights reserved.
 //
 
 #import "UIView+Additions.h"
