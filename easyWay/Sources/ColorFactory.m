@@ -11,6 +11,14 @@
 @implementation ColorFactory
 
 /*
+ *  White
+ */
+
++ (UIColor *) whiteBackgroundColor {
+    return [UIColor colorWithRed:255.0f/255.0f green:250.0f/255.0f blue:240.0f/255.0f alpha:1.0f];
+}
+
+/*
  *  red
  */
 

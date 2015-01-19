@@ -11,6 +11,8 @@
 
 @interface ColorFactory : NSObject
 
++ (UIColor *) whiteBackgroundColor;
+
 + (UIColor *) redLightColor;
 + (UIColor *) redBoldColor;
 

@@ -128,7 +128,7 @@ static const BOOL isCurrentLocation = YES;
     searchJourneyBtn.frame = CGRectMake(0.0f, 0.0f, 100.0f, 30.0f);
     searchJourneyBtn.center = fieldsContainer.center;
     searchJourneyBtn.top = self.endField.bottom + 20.0f;
-    [searchJourneyBtn setTitle:@"Recherchez" forState:UIControlStateNormal];
+    [searchJourneyBtn setTitle:@"Rechercher" forState:UIControlStateNormal];
     [searchJourneyBtn setBackgroundColor:[ColorFactory yellowColor]];
     [searchJourneyBtn.titleLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:14.0f]];
     [searchJourneyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -147,6 +147,8 @@ static BOOL isHeightTableViewSet = NO;
     self.journeysTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.journeysTableView.delegate = self;
     self.journeysTableView.dataSource = self;
+    [self.journeysTableView setBackgroundColor:[ColorFactory whiteBackgroundColor]];
+
     [self.view addSubview:self.journeysTableView];
 }
 

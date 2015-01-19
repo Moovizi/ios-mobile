@@ -125,10 +125,10 @@ static const BOOL isMapFullScreen = YES;
 }
 
 - (void)loadJourneySummary {
-    self.self.journeySummary = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.mapView.bottom, self.view.width, 70.0f)];
+    self.journeySummary = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.mapView.bottom, self.view.width, 70.0f)];
     self.journeySummary.layer.borderWidth = 1.0f;
     self.journeySummary.layer.borderColor = [ColorFactory grayBorder].CGColor;
-    [self.journeySummary setBackgroundColor:[UIColor whiteColor]];
+    [self.journeySummary setBackgroundColor:[ColorFactory whiteBackgroundColor]];
     UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                       action:@selector(changeModeMap:)];
     [self.journeySummary addGestureRecognizer:singleFingerTap];
@@ -141,6 +141,10 @@ static const BOOL isMapFullScreen = YES;
     UILabel *timesLabel = [[UILabel alloc] initWithFrame:CGRectMake(35.0f, typeImage.top, 170.0f, 15.0f)];
     timesLabel.textColor = [ColorFactory blackTextColor];
     timesLabel.font = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
+    timesLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",
+                       [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"departure_date_time"]],
+                       [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"arrival_date_time"]],
+                       [DateTimeTool timeFromDuration:[self.journey objectForKey:@"duration"]]];
     [self.journeySummary addSubview:timesLabel];
     
     UIView *stepsView = [[UIView alloc] initWithFrame:CGRectMake(timesLabel.left, timesLabel.bottom + 3.0f, self.view.width - 40.0f, 25.0f)];
@@ -156,11 +160,6 @@ static const BOOL isMapFullScreen = YES;
     else {
         typeImage.image = [UIImage imageNamed:@"public_transport.png"];
     }
-
-    timesLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",
-                            [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"departure_date_time"]],
-                            [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"arrival_date_time"]],
-                            [DateTimeTool timeFromDuration:[self.journey objectForKey:@"duration"]]];
 
     NSArray *sections = [self.journey objectForKey:@"sections"];
     
@@ -245,7 +244,7 @@ static const BOOL isMapFullScreen = YES;
     NSDictionary *section = [self.sections objectAtIndex:indexPath.row];
     if ([[section objectForKey:@"type"] isEqualToString:@"street_network"] ||
         [[section objectForKey:@"type"] isEqualToString:@"transfer"]) {
-        height = 50.0f;
+        height = 55.0f;
     }
     else if ([[section objectForKey:@"type"] isEqualToString:@"public_transport"]) {
         height = 70.0f;

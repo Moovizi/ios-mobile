@@ -28,7 +28,7 @@
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"JourneyResultCell"];
     if (self) {
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
+        [self setBackgroundColor:[UIColor clearColor]];
         self.typeImage = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 15.0f, 15.0f)];
         self.typeImage.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:self.typeImage];
