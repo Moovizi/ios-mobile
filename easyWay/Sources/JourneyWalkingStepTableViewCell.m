@@ -93,7 +93,7 @@
 - (void)initContentCell:(NSDictionary *)stepTransport {
     self.stepTransport = stepTransport;
     self.hourStepLabel.text = [DateTimeTool dateTimeToHourString:[stepTransport objectForKey:@"departure_date_time"]];
-    self.durationStepLabel.text = [DateTimeTool timeFromDuration:[stepTransport objectForKey:@"duration"]];
+    self.durationStepLabel.text = [DateTimeTool durationStringFromDurationNumber:[stepTransport objectForKey:@"duration"]];
     
     if ([[stepTransport objectForKey:@"type"] isEqualToString:@"street_network"]) {
         self.walkingText.text = @"Aller jusqu'à:";

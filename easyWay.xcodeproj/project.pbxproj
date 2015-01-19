@@ -48,6 +48,7 @@
 		AA6016F01A531F0D00349E45 /* poi_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6016EF1A531F0D00349E45 /* poi_pin.png */; };
 		AA7A2E311A6869C800C46FC4 /* TransportStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A2E301A6869C800C46FC4 /* TransportStepView.m */; };
 		AA7A2E341A69CF0500C46FC4 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A2E331A69CF0500C46FC4 /* CircleView.m */; };
+		AAEA336C1A6D796C0003457D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEA336B1A6D796C0003457D /* settings.png */; };
 		AAF859D41A6179FF00FD950A /* JourneyResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF859D31A6179FF00FD950A /* JourneyResultTableViewCell.m */; };
 		AAF859D61A617D2000FD950A /* public_transport.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF859D51A617D2000FD950A /* public_transport.png */; };
 		AAF859D81A617D4C00FD950A /* walking.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF859D71A617D4C00FD950A /* walking.png */; };
@@ -127,6 +128,7 @@
 		AA7A2E301A6869C800C46FC4 /* TransportStepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransportStepView.m; path = Sources/TransportStepView.m; sourceTree = "<group>"; };
 		AA7A2E321A69CF0500C46FC4 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircleView.h; path = Sources/CircleView.h; sourceTree = "<group>"; };
 		AA7A2E331A69CF0500C46FC4 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CircleView.m; path = Sources/CircleView.m; sourceTree = "<group>"; };
+		AAEA336B1A6D796C0003457D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = Resources/Images/settings.png; sourceTree = "<group>"; };
 		AAF859D21A6179FF00FD950A /* JourneyResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JourneyResultTableViewCell.h; path = Sources/JourneyResultTableViewCell.h; sourceTree = "<group>"; };
 		AAF859D31A6179FF00FD950A /* JourneyResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JourneyResultTableViewCell.m; path = Sources/JourneyResultTableViewCell.m; sourceTree = "<group>"; };
 		AAF859D51A617D2000FD950A /* public_transport.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public_transport.png; path = Resources/Images/public_transport.png; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 		AA2A28861A45A9BC00C8028E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AAEA336B1A6D796C0003457D /* settings.png */,
 				AAF859DC1A61FBC800FD950A /* next_step.png */,
 				AAF859D71A617D4C00FD950A /* walking.png */,
 				AAF859D51A617D2000FD950A /* public_transport.png */,
@@ -458,6 +461,7 @@
 				AA2A28841A45928C00C8028E /* Montserrat-Bold.ttf in Resources */,
 				AAF859D81A617D4C00FD950A /* walking.png in Resources */,
 				AA2A28851A45928C00C8028E /* Montserrat-Regular.ttf in Resources */,
+				AAEA336C1A6D796C0003457D /* settings.png in Resources */,
 				AA2A28BB1A45C4FD00C8028E /* difficulty_activated.png in Resources */,
 				AA2A28BC1A45C4FD00C8028E /* difficulty_deactivated.png in Resources */,
 				AA2A28581A45873400C8028E /* LaunchScreen.xib in Resources */,

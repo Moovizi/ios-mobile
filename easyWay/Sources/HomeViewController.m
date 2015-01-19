@@ -22,6 +22,8 @@
 #import "ColorFactory.h"
 #import "UIImage+Additions.h"
 
+#import "DateTimeTool.h"
+
 @interface HomeViewController () <CLLocationManagerDelegate, UITextFieldDelegate,
                                     UITableViewDataSource, UITableViewDelegate, WebServicesDelegate, GMSMapViewDelegate>
 
@@ -653,7 +655,7 @@ static const BOOL isCurrentLocation = YES;
     
         NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                            forbidden_uris, @"forbidden_uris",
-                                           @"20150118T0800", @"datetime",
+                                           [DateTimeTool dateTimeFromNSDate:[NSDate date]], @"datetime",
                                            nil];
         
         if (self.startField.tag == isCurrentLocation) {

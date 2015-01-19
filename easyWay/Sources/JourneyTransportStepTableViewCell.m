@@ -88,7 +88,7 @@
 
 - (void)initContentCell:(NSDictionary *)stepTransport {
     self.hourStepLabel.text = [DateTimeTool dateTimeToHourString:[stepTransport objectForKey:@"departure_date_time"]];
-    self.durationStepLabel.text = [DateTimeTool timeFromDuration:[stepTransport objectForKey:@"duration"]];
+    self.durationStepLabel.text = [DateTimeTool durationStringFromDurationNumber:[stepTransport objectForKey:@"duration"]];
     
     NSString *transportMode = [[stepTransport objectForKey:@"display_informations"] objectForKey:@"physical_mode"];
     NSDictionary *infoLine = [stepTransport objectForKey:@"display_informations"];

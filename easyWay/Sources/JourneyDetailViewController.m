@@ -144,7 +144,7 @@ static const BOOL isMapFullScreen = YES;
     timesLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",
                        [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"departure_date_time"]],
                        [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"arrival_date_time"]],
-                       [DateTimeTool timeFromDuration:[self.journey objectForKey:@"duration"]]];
+                       [DateTimeTool durationStringFromDurationNumber:[self.journey objectForKey:@"duration"]]];
     [self.journeySummary addSubview:timesLabel];
     
     UIView *stepsView = [[UIView alloc] initWithFrame:CGRectMake(timesLabel.left, timesLabel.bottom + 3.0f, self.view.width - 40.0f, 25.0f)];

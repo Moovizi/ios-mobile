@@ -19,7 +19,21 @@
     return hourString;
 }
 
-+ (NSString *)timeFromDuration:(NSNumber *)duration {
++ (NSString *)NSDateToHourString:(NSDate *)date {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"HH:mm"];
+    NSString *hourString = [dateFormat stringFromDate:date];
+    return hourString;
+}
+
++ (NSString *)dateTimeFromNSDate:(NSDate *)date {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyyMMdd'T'HHmmss"];
+    NSString *dateString = [dateFormat stringFromDate:date];
+    return dateString;
+}
+
++ (NSString *)durationStringFromDurationNumber:(NSNumber *)duration {
     long seconds = [duration longValue];
     long days = seconds / (60 * 60 * 24);
     seconds -= (days * (60 * 60 * 24));

@@ -117,7 +117,7 @@
     self.timesLabel.text = [NSString stringWithFormat:@"%@ - %@ (%@)",
                             [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"departure_date_time"]],
                             [DateTimeTool dateTimeToHourString:[self.journey objectForKey:@"arrival_date_time"]],
-                            [DateTimeTool timeFromDuration:[self.journey objectForKey:@"duration"]]];
+                            [DateTimeTool durationStringFromDurationNumber:[self.journey objectForKey:@"duration"]]];
 }
 
 @end

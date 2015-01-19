@@ -11,6 +11,8 @@
 @interface DateTimeTool : NSObject
 
 + (NSString *)dateTimeToHourString:(NSString *)string;
-+ (NSString *)timeFromDuration:(NSNumber *)duration;
++ (NSString *)durationStringFromDurationNumber:(NSNumber *)duration;
++ (NSString *)NSDateToHourString:(NSDate *)date;
++ (NSString *)dateTimeFromNSDate:(NSDate *)date;
 
 @end

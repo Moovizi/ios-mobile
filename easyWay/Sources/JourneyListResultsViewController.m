@@ -16,6 +16,8 @@
 #import "JourneyDetailViewController.h"
 #import "Constants.h"
 
+#import "DateTimeTool.h"
+
 // UI Tools Imports
 #import "WebServices.h"
 #import "UIView+Additions.h"
@@ -30,6 +32,9 @@
 @property (nonatomic, strong) UIView *separator;
 @property (nonatomic, strong) UIView *deleteTextView;
 @property (nonatomic, strong) UIButton *switchBtn;
+@property (nonatomic, strong) UIView *dateSelectedView;
+@property (nonatomic, strong) NSDate *dateSelected;
+@property (nonatomic, strong) UILabel *dateSelectedLabel;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSArray *placesNearMeArray;
@@ -71,6 +76,8 @@ static BOOL isHeightTableViewSet = NO;
     
     self.webServices = [[WebServices alloc] init];
     self.webServices.delegate = self;
+    
+    self.dateSelected = [NSDate date];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
@@ -130,11 +137,24 @@ static BOOL isHeightTableViewSet = NO;
     [self.deleteTextView addSubview:deleteTextBtn];
     
     self.switchBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.switchBtn.frame = CGRectMake(self.startField.right + 5.0f, self.startField.bottom + 2.5f - 15.0f, 30.0f, 30.0f);
+    self.switchBtn.frame = CGRectMake(self.view.right - 40.0f, self.startField.bottom + 2.5f - 15.0f, 30.0f, 30.0f);
     [self.switchBtn setBackgroundImage:[UIImage imageNamed:@"switch.png"] forState:UIControlStateNormal];
     [self.switchBtn addTarget:self action:@selector(switchLocations:) forControlEvents:UIControlEventTouchUpInside];
     [fieldsContainer addSubview:self.switchBtn];
     [self.view addSubview:fieldsContainer];
+    
+    self.dateSelectedView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, fieldsContainer.bottom, fieldsContainer.width, 40.0f)];
+    [self.dateSelectedView setBackgroundColor:[ColorFactory redBoldColor]];
+    self.dateSelectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(self. startField.left, 10.0f, 200.0f, 20.0f)];
+    self.dateSelectedLabel.font = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
+    self.dateSelectedLabel.textColor = [UIColor whiteColor];
+    self.dateSelectedLabel.text = [NSString stringWithFormat:@"Départ à %@", [DateTimeTool NSDateToHourString:[NSDate date]]];
+    [self.dateSelectedView addSubview:self.dateSelectedLabel];
+    
+    UIImageView *settingsIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.dateSelectedView.right - 30.0f, 10.0f, 20.0f, 20.0f)];
+    settingsIcon.image = [UIImage imageNamed:@"settings.png"];
+    [self.dateSelectedView addSubview:settingsIcon];
+    [self.view addSubview:self.dateSelectedView];
     
     self.placesTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 50.0f, self.view.width, self.view.height - 50.0f) style:UITableViewStylePlain];
     self.placesTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -143,7 +163,7 @@ static BOOL isHeightTableViewSet = NO;
     self.placesTableView.hidden = YES;
     [self.view addSubview:self.placesTableView];
     
-    self.journeysTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, fieldsContainer.bottom, self.view.width, self.view.height - fieldsContainer.height) style:UITableViewStylePlain];
+    self.journeysTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, self.dateSelectedView.bottom, self.view.width, self.view.height - fieldsContainer.height) style:UITableViewStylePlain];
     self.journeysTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.journeysTableView.delegate = self;
     self.journeysTableView.dataSource = self;
