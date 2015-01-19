@@ -375,7 +375,7 @@ static const BOOL isCurrentLocation = YES;
                 cell.cityLabel.text = [[terms objectAtIndex:1] objectForKey:@"value"];
             }
         }
-        cell.iconImage.image = [UIImage imageNamed:@"poi_deactivated.png"];
+        cell.iconImage.image = [UIImage imageNamed:@"poi_pin.png"];
     }
     return cell;
 }
