@@ -9,6 +9,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 #import "AppDelegate.h"
+#import "AFNetworkActivityIndicatorManager.h"
 #import "HomeViewController.h"
 #import "UIView+Additions.h"
 #import "ColorFactory.h"
@@ -26,6 +27,7 @@
     [self.window setBackgroundColor:[UIColor whiteColor]];
     
     [GMSServices provideAPIKey:kGOOGLE_MAP_API_KEY];
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
     HomeViewController *mainVC = [[HomeViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];

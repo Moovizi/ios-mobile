@@ -14,6 +14,7 @@
 #import "HomeViewController.h"
 #import "JourneyResultTableViewCell.h"
 #import "JourneyDetailViewController.h"
+#import "DateTimePickerViewController.h"
 #import "Constants.h"
 
 #import "DateTimeTool.h"
@@ -24,7 +25,7 @@
 #import "ColorFactory.h"
 #import "UIImage+Additions.h"
 
-@interface JourneyListResultsViewController () <CLLocationManagerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, WebServicesDelegate>
+@interface JourneyListResultsViewController () <CLLocationManagerDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, WebServicesDelegate, DateTimePickerDelegate>
 
 @property (nonatomic, strong) WebServices *webServices;
 
@@ -34,6 +35,7 @@
 @property (nonatomic, strong) UIButton *switchBtn;
 @property (nonatomic, strong) UIView *dateSelectedView;
 @property (nonatomic, strong) NSDate *dateSelected;
+@property (nonatomic, assign) kDateTimeType dateTimeType;
 @property (nonatomic, strong) UILabel *dateSelectedLabel;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -57,6 +59,7 @@ static BOOL isHeightTableViewSet = NO;
         self.journeys = journeys;
         self.startField = [[UITextField alloc] init];
         self.endField = [[UITextField alloc] init];
+        self.dateTimeType = kDepartureTime;
     }
     return self;
 }
@@ -149,6 +152,8 @@ static BOOL isHeightTableViewSet = NO;
     self.dateSelectedLabel.font = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
     self.dateSelectedLabel.textColor = [UIColor whiteColor];
     self.dateSelectedLabel.text = [NSString stringWithFormat:@"Départ à %@", [DateTimeTool NSDateToHourString:[NSDate date]]];
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDateTimePicker:)];
+    [self.dateSelectedView addGestureRecognizer:singleFingerTap];
     [self.dateSelectedView addSubview:self.dateSelectedLabel];
     
     UIImageView *settingsIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.dateSelectedView.right - 30.0f, 10.0f, 20.0f, 20.0f)];
@@ -277,9 +282,11 @@ static BOOL isHeightTableViewSet = NO;
                                @"physical_mode:default_physical_mode",
                                nil];
     
+    NSString *dateTimeType = (self.dateTimeType == kDepartureTime ? @"departure" : @"arrival");
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        forbidden_uris, @"forbidden_uris",
-                                       @"20150118T0800", @"datetime",
+                                       [DateTimeTool dateTimeFromNSDate:self.dateSelected], @"datetime",
+                                       dateTimeType, @"datetime_represents",
                                        nil];
     
     if (self.startField.tag == isCurrentLocation) {
@@ -417,7 +424,7 @@ static BOOL isHeightTableViewSet = NO;
                 cell.cityLabel.text = [[terms objectAtIndex:1] objectForKey:@"value"];
             }
         }
-        cell.iconImage.image = [UIImage imageNamed:@"poi_deactivated.png"];
+        cell.iconImage.image = [UIImage imageNamed:@"poi_pin.png"];
     }
     return cell;
  
@@ -623,7 +630,35 @@ static BOOL isHeightTableViewSet = NO;
     }];
 }
 
+#pragma mark - DateTime Picker delegate 
+
+- (void)dateTimeChanged:(NSDate *)date type:(kDateTimeType)type {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelFont = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
+    hud.labelText = @"Mise à jour de l'itinéraire";
+    NSLog(@"NEW DATE ==== %@", date);
+    self.dateSelected  = date;
+    self.dateTimeType = type;
+    if (type == kDepartureTime) {
+        self.dateSelectedLabel.text = [NSString stringWithFormat:@"Départ à %@", [DateTimeTool NSDateToHourString:date]];
+    }
+    else if (type == kArrivedTime) {
+        self.dateSelectedLabel.text = [NSString stringWithFormat:@"Arrivée à %@", [DateTimeTool NSDateToHourString:date]];
+    }
+    [self GETJourney];
+}
+
 #pragma mark - UIButtons actions
+
+- (IBAction)showDateTimePicker:(id)sender {
+    DateTimePickerViewController *dateTimePicker = [[DateTimePickerViewController alloc] init];
+    dateTimePicker.dateTimeType = self.dateTimeType;
+    [dateTimePicker.view setBackgroundColor:[UIColor clearColor]];
+    dateTimePicker.datePicker.date = self.dateSelected;
+    dateTimePicker.delegate = self;
+    [self.navigationController presentViewController:dateTimePicker animated:NO completion:nil];
+}
 
 - (IBAction)cancel:(id)sender {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];

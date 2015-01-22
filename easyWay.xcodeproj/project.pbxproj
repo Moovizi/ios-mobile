@@ -28,6 +28,7 @@
 		AA2A28BB1A45C4FD00C8028E /* difficulty_activated.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2A28B71A45C4FD00C8028E /* difficulty_activated.png */; };
 		AA2A28BC1A45C4FD00C8028E /* difficulty_deactivated.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2A28B81A45C4FD00C8028E /* difficulty_deactivated.png */; };
 		AA342C681A6497C9003E6F20 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = AA342C671A6497C9003E6F20 /* Constants.m */; };
+		AA57C1CE1A6EDC0E0012A578 /* DateTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA57C1CD1A6EDC0E0012A578 /* DateTimePickerViewController.m */; };
 		AA6016BD1A4DB45200349E45 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AA6016BC1A4DB45200349E45 /* GoogleMaps.bundle */; };
 		AA6016D81A4DEB5400349E45 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6016D61A4DEB4400349E45 /* SystemConfiguration.framework */; };
 		AA6016D91A4DEB5400349E45 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6016D41A4DEB3500349E45 /* QuartzCore.framework */; };
@@ -104,6 +105,8 @@
 		AA2A28B81A45C4FD00C8028E /* difficulty_deactivated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = difficulty_deactivated.png; path = Resources/Images/difficulty_deactivated.png; sourceTree = "<group>"; };
 		AA342C661A6496BE003E6F20 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Sources/Constants.h; sourceTree = "<group>"; };
 		AA342C671A6497C9003E6F20 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Sources/Constants.m; sourceTree = "<group>"; };
+		AA57C1CC1A6EDC0E0012A578 /* DateTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateTimePickerViewController.h; path = Sources/DateTimePickerViewController.h; sourceTree = "<group>"; };
+		AA57C1CD1A6EDC0E0012A578 /* DateTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateTimePickerViewController.m; path = Sources/DateTimePickerViewController.m; sourceTree = "<group>"; };
 		AA6016BA1A4DB43400349E45 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Resources/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		AA6016BC1A4DB45200349E45 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Resources/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		AA6016C01A4DB49200349E45 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -205,6 +208,8 @@
 			children = (
 				AA7A2E2F1A6869C800C46FC4 /* TransportStepView.h */,
 				AA7A2E301A6869C800C46FC4 /* TransportStepView.m */,
+				AA57C1CC1A6EDC0E0012A578 /* DateTimePickerViewController.h */,
+				AA57C1CD1A6EDC0E0012A578 /* DateTimePickerViewController.m */,
 			);
 			name = "Journey UI Generator";
 			sourceTree = "<group>";
@@ -531,6 +536,7 @@
 				AA342C681A6497C9003E6F20 /* Constants.m in Sources */,
 				AA2A28781A458FCE00C8028E /* AppDelegate.m in Sources */,
 				AA7A2E311A6869C800C46FC4 /* TransportStepView.m in Sources */,
+				AA57C1CE1A6EDC0E0012A578 /* DateTimePickerViewController.m in Sources */,
 				AA2A28791A458FCE00C8028E /* HomeViewController.m in Sources */,
 				AA180F0A1A62E1E100797784 /* JourneyDetailViewController.m in Sources */,
 				AA0ECC001A5AC25500AC8F19 /* JourneyListResultsViewController.m in Sources */,

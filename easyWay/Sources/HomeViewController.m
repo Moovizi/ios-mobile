@@ -78,7 +78,7 @@ static const BOOL isCurrentLocation = YES;
     /* Start and end location fields container */
     UIView *fieldsContainer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, 150.0f)];
     [fieldsContainer setBackgroundColor:[ColorFactory redLightColor]];
-    
+        
     self.startField = [[UITextField alloc] initWithFrame:CGRectMake(leftPadding, 20.0f, self.view.width - (leftPadding * 2) - 30.0f - 10, 30.0f)];
     self.startField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 4.0f, 20.0f)];
     self.startField.leftViewMode = UITextFieldViewModeAlways;
@@ -652,10 +652,10 @@ static const BOOL isCurrentLocation = YES;
     //2.297719;48.845301
     // @"2.309698;48.868835", @"to",
 
-    
         NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                            forbidden_uris, @"forbidden_uris",
                                            [DateTimeTool dateTimeFromNSDate:[NSDate date]], @"datetime",
+                                           @"departure", @"datetime_represents",
                                            nil];
         
         if (self.startField.tag == isCurrentLocation) {
