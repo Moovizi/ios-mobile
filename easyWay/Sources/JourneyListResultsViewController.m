@@ -33,7 +33,12 @@
 @property (nonatomic, strong) UIView *separator;
 @property (nonatomic, strong) UIView *deleteTextView;
 @property (nonatomic, strong) UIButton *switchBtn;
-@property (nonatomic, strong) UIView *dateSelectedView;
+
+@property (nonatomic, strong) UIView *selectedIndicator;
+@property (nonatomic, strong) UIImageView *walkingIcon;
+@property (nonatomic, strong) UIImageView *transportIcon;
+@property (nonatomic, assign) BOOL isPublicTransportation;
+
 @property (nonatomic, strong) NSDate *dateSelected;
 @property (nonatomic, assign) kDateTimeType dateTimeType;
 @property (nonatomic, strong) UILabel *dateSelectedLabel;
@@ -79,28 +84,14 @@ static BOOL isHeightTableViewSet = NO;
     
     self.webServices = [[WebServices alloc] init];
     self.webServices.delegate = self;
-    
+    self.isPublicTransportation = YES;
+
     self.dateSelected = [NSDate date];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
-- (void)loadView {
-    UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]
-                                  initWithTitle:@"Annuler"
-                                  style:UIBarButtonItemStyleDone
-                                  target:self
-                                  action:@selector(cancel:)];
-    [cancelBtn setTitleTextAttributes:@{
-                                         NSFontAttributeName:[UIFont fontWithName:@"Montserrat-Regular" size:20.0f],
-                                         NSForegroundColorAttributeName: [ColorFactory yellowColor]
-                                         } forState:UIControlStateNormal];
-
-    self.navigationItem.rightBarButtonItem = cancelBtn;
-    
-    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.view setBackgroundColor:[ColorFactory redLightColor]];
-    
+- (UIView *)loadFieldsContainer {
     UIView *fieldsContainer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, 90.0f)];
     [fieldsContainer setBackgroundColor:[ColorFactory redLightColor]];
     
@@ -144,22 +135,74 @@ static BOOL isHeightTableViewSet = NO;
     [self.switchBtn setBackgroundImage:[UIImage imageNamed:@"switch.png"] forState:UIControlStateNormal];
     [self.switchBtn addTarget:self action:@selector(switchLocations:) forControlEvents:UIControlEventTouchUpInside];
     [fieldsContainer addSubview:self.switchBtn];
+    return fieldsContainer;
+}
+
+- (void)loadView {
+    UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc]
+                                  initWithTitle:@"Annuler"
+                                  style:UIBarButtonItemStyleDone
+                                  target:self
+                                  action:@selector(cancel:)];
+    [cancelBtn setTitleTextAttributes:@{
+                                         NSFontAttributeName:[UIFont fontWithName:@"Montserrat-Regular" size:20.0f],
+                                         NSForegroundColorAttributeName: [ColorFactory yellowColor]
+                                         } forState:UIControlStateNormal];
+
+    self.navigationItem.rightBarButtonItem = cancelBtn;
+    
+    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.view setBackgroundColor:[ColorFactory redLightColor]];
+    
+    UIView *fieldsContainer = [self loadFieldsContainer];
     [self.view addSubview:fieldsContainer];
     
-    self.dateSelectedView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, fieldsContainer.bottom, fieldsContainer.width, 40.0f)];
-    [self.dateSelectedView setBackgroundColor:[ColorFactory redBoldColor]];
+    UIButton *transportBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [transportBtn setBackgroundColor:[ColorFactory redBoldColor]];
+    transportBtn.layer.borderWidth = 1.0f;
+    transportBtn.layer.borderColor = [ColorFactory grayBorder].CGColor;
+    transportBtn.frame = CGRectMake(0.0f, fieldsContainer.bottom, self.view.width / 2.0f, 40.0f);
+    self.transportIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+    self.transportIcon.center = CGPointMake(transportBtn.width / 2, transportBtn.height / 2);
+    self.transportIcon.image = [UIImage imageNamed:@"public_transport_white.png"];
+    self.transportIcon.contentMode = UIViewContentModeScaleAspectFit;
+    [transportBtn addSubview:self.transportIcon];
+    [transportBtn addTarget:self action:@selector(changeTypeJourney:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:transportBtn];
+    
+    UIButton *walkingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [walkingBtn setBackgroundColor:[ColorFactory redBoldColor]];
+    walkingBtn.layer.borderWidth = 1.0f;
+    walkingBtn.layer.borderColor = [ColorFactory grayBorder].CGColor;
+    walkingBtn.frame = CGRectMake(transportBtn.right, transportBtn.top, self.view.width / 2.0f, 40.0f);
+    self.walkingIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+    self.walkingIcon.center = CGPointMake(walkingBtn.width / 2, walkingBtn.height / 2);
+    self.walkingIcon.image = [UIImage imageNamed:@"walking_unselected.png"];
+    self.walkingIcon.contentMode = UIViewContentModeScaleAspectFit;
+    [walkingBtn addSubview:self.walkingIcon];
+    [walkingBtn addTarget:self action:@selector(changeTypeJourney:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:walkingBtn];
+    
+    self.selectedIndicator = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width / 2, 5.0f)];
+    [self.selectedIndicator setBackgroundColor:[ColorFactory yellowColor]];
+    [transportBtn addSubview:self.selectedIndicator];
+    
+    UIView *dateSelectedView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, walkingBtn.bottom - 1, fieldsContainer.width, 40.0f)];
+    dateSelectedView.layer.borderColor = [ColorFactory grayBorder].CGColor;
+    dateSelectedView.layer.borderWidth = 1.0f;
+    [dateSelectedView setBackgroundColor:[ColorFactory redBoldColor]];
     self.dateSelectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(self. startField.left, 10.0f, 200.0f, 20.0f)];
     self.dateSelectedLabel.font = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
     self.dateSelectedLabel.textColor = [UIColor whiteColor];
     self.dateSelectedLabel.text = [NSString stringWithFormat:@"Départ à %@", [DateTimeTool NSDateToHourString:[NSDate date]]];
     UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDateTimePicker:)];
-    [self.dateSelectedView addGestureRecognizer:singleFingerTap];
-    [self.dateSelectedView addSubview:self.dateSelectedLabel];
+    [dateSelectedView addGestureRecognizer:singleFingerTap];
+    [dateSelectedView addSubview:self.dateSelectedLabel];
     
-    UIImageView *settingsIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.dateSelectedView.right - 30.0f, 10.0f, 20.0f, 20.0f)];
+    UIImageView *settingsIcon = [[UIImageView alloc] initWithFrame:CGRectMake(dateSelectedView.right - 30.0f, 10.0f, 20.0f, 20.0f)];
     settingsIcon.image = [UIImage imageNamed:@"settings.png"];
-    [self.dateSelectedView addSubview:settingsIcon];
-    [self.view addSubview:self.dateSelectedView];
+    [dateSelectedView addSubview:settingsIcon];
+    [self.view addSubview:dateSelectedView];
     
     self.placesTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 50.0f, self.view.width, self.view.height - 50.0f) style:UITableViewStylePlain];
     self.placesTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -168,7 +211,7 @@ static BOOL isHeightTableViewSet = NO;
     self.placesTableView.hidden = YES;
     [self.view addSubview:self.placesTableView];
     
-    self.journeysTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, self.dateSelectedView.bottom, self.view.width, self.view.height - fieldsContainer.height) style:UITableViewStylePlain];
+    self.journeysTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, dateSelectedView.bottom, self.view.width, self.view.height - fieldsContainer.height) style:UITableViewStylePlain];
     self.journeysTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.journeysTableView.delegate = self;
     self.journeysTableView.dataSource = self;
@@ -275,7 +318,12 @@ static BOOL isHeightTableViewSet = NO;
 }
 
 - (void)GETJourney {
-    NSArray *forbidden_uris = [NSArray arrayWithObjects:@"physical_mode:RapidTransit",
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelFont = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
+    hud.labelText = @"Mise à jour de l'itinéraire";
+    
+    NSMutableArray *forbidden_uris = [NSMutableArray arrayWithObjects:@"physical_mode:RapidTransit",
                                @"physical_mode:Metro",
                                @"physical_mode:CheckOut",
                                @"physical_mode:CheckIn",
@@ -284,11 +332,21 @@ static BOOL isHeightTableViewSet = NO;
     
     NSString *dateTimeType = (self.dateTimeType == kDepartureTime ? @"departure" : @"arrival");
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       forbidden_uris, @"forbidden_uris",
                                        [DateTimeTool dateTimeFromNSDate:self.dateSelected], @"datetime",
                                        dateTimeType, @"datetime_represents",
                                        nil];
     
+    if (self.isPublicTransportation == NO) {
+        [forbidden_uris addObjectsFromArray:@[@"physical_mode:Trolleybus",
+                                              @"physical_mode:Tramway",
+                                              @"physical_mode:Bus"]];
+        
+        [parameters setObject:@"90000" forKey:@"max_duration_to_pt"];
+    }
+    
+    [parameters setObject:forbidden_uris forKey:@"forbidden_uris"];
+    
+
     if (self.startField.tag == isCurrentLocation) {
         [parameters setObject:[NSString stringWithFormat:@"%f;%f", self.locationManager.location.coordinate.longitude,
                                self.locationManager.location.coordinate.latitude] forKey:@"from"];
@@ -457,11 +515,6 @@ static BOOL isHeightTableViewSet = NO;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.placesTableView) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeIndeterminate;
-        hud.labelFont = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
-        hud.labelText = @"Mise à jour de l'itinéraire";
-        
         HomeViewController *homeVC = (HomeViewController *)((UINavigationController *)self.presentingViewController).topViewController;
         if (![self isThereCurrentLocationSelected] &&
             [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse &&
@@ -633,10 +686,6 @@ static BOOL isHeightTableViewSet = NO;
 #pragma mark - DateTime Picker delegate 
 
 - (void)dateTimeChanged:(NSDate *)date type:(kDateTimeType)type {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelFont = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
-    hud.labelText = @"Mise à jour de l'itinéraire";
     NSLog(@"NEW DATE ==== %@", date);
     self.dateSelected  = date;
     self.dateTimeType = type;
@@ -650,6 +699,22 @@ static BOOL isHeightTableViewSet = NO;
 }
 
 #pragma mark - UIButtons actions
+
+- (IBAction)changeTypeJourney:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    [btn addSubview:self.selectedIndicator];
+    if (self.isPublicTransportation == YES) {
+        self.isPublicTransportation = NO;
+        self.walkingIcon.image = [UIImage imageNamed:@"walking_white.png"];
+        self.transportIcon.image = [UIImage imageNamed:@"public_transport_unselected.png"];
+    }
+    else {
+        self.isPublicTransportation = YES;
+        self.walkingIcon.image = [UIImage imageNamed:@"walking_unselected.png"];
+        self.transportIcon.image = [UIImage imageNamed:@"public_transport_white.png"];
+    }
+    [self GETJourney];
+}
 
 - (IBAction)showDateTimePicker:(id)sender {
     DateTimePickerViewController *dateTimePicker = [[DateTimePickerViewController alloc] init];
@@ -689,12 +754,6 @@ static BOOL isHeightTableViewSet = NO;
 }
 
 - (IBAction)switchLocations:(id)sender {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelFont = [UIFont fontWithName:@"Montserrat-Regular" size:13.0f];
-    hud.labelText = @"Recherche d'itinéraire";
-    
-
     HomeViewController *homeVC = (HomeViewController *)((UINavigationController *)self.presentingViewController).topViewController;
     NSDictionary *tmpGoogleObject = self.endGoogleObject;
     self.endGoogleObject = self.startGoogleObject;

@@ -67,7 +67,7 @@
     [arrivedBtn addTarget:self action:@selector(changeDateTimeType:) forControlEvents:UIControlEventTouchUpInside];
     [self.pickerContainer addSubview:arrivedBtn];
     
-    self.selectedIndicator = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width / 2, 4.0f)];
+    self.selectedIndicator = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width / 2, 5.0f)];
     [self.selectedIndicator setBackgroundColor:[ColorFactory yellowColor]];
     if (self.dateTimeType == kDepartureTime) {
         [departBtn addSubview:self.selectedIndicator];

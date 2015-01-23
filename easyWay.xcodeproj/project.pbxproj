@@ -28,6 +28,10 @@
 		AA2A28BB1A45C4FD00C8028E /* difficulty_activated.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2A28B71A45C4FD00C8028E /* difficulty_activated.png */; };
 		AA2A28BC1A45C4FD00C8028E /* difficulty_deactivated.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2A28B81A45C4FD00C8028E /* difficulty_deactivated.png */; };
 		AA342C681A6497C9003E6F20 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = AA342C671A6497C9003E6F20 /* Constants.m */; };
+		AA473B171A71ABEC00D69160 /* public_transport_white.png in Resources */ = {isa = PBXBuildFile; fileRef = AA473B161A71ABEC00D69160 /* public_transport_white.png */; };
+		AA473B191A71AC0300D69160 /* walking_white.png in Resources */ = {isa = PBXBuildFile; fileRef = AA473B181A71AC0300D69160 /* walking_white.png */; };
+		AA473B1C1A71C49F00D69160 /* public_transport_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = AA473B1A1A71C49F00D69160 /* public_transport_unselected.png */; };
+		AA473B1D1A71C49F00D69160 /* walking_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = AA473B1B1A71C49F00D69160 /* walking_unselected.png */; };
 		AA57C1CE1A6EDC0E0012A578 /* DateTimePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA57C1CD1A6EDC0E0012A578 /* DateTimePickerViewController.m */; };
 		AA6016BD1A4DB45200349E45 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AA6016BC1A4DB45200349E45 /* GoogleMaps.bundle */; };
 		AA6016D81A4DEB5400349E45 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6016D61A4DEB4400349E45 /* SystemConfiguration.framework */; };
@@ -105,6 +109,10 @@
 		AA2A28B81A45C4FD00C8028E /* difficulty_deactivated.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = difficulty_deactivated.png; path = Resources/Images/difficulty_deactivated.png; sourceTree = "<group>"; };
 		AA342C661A6496BE003E6F20 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Sources/Constants.h; sourceTree = "<group>"; };
 		AA342C671A6497C9003E6F20 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Sources/Constants.m; sourceTree = "<group>"; };
+		AA473B161A71ABEC00D69160 /* public_transport_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public_transport_white.png; path = Resources/Images/public_transport_white.png; sourceTree = "<group>"; };
+		AA473B181A71AC0300D69160 /* walking_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = walking_white.png; path = Resources/Images/walking_white.png; sourceTree = "<group>"; };
+		AA473B1A1A71C49F00D69160 /* public_transport_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public_transport_unselected.png; path = Resources/Images/public_transport_unselected.png; sourceTree = "<group>"; };
+		AA473B1B1A71C49F00D69160 /* walking_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = walking_unselected.png; path = Resources/Images/walking_unselected.png; sourceTree = "<group>"; };
 		AA57C1CC1A6EDC0E0012A578 /* DateTimePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateTimePickerViewController.h; path = Sources/DateTimePickerViewController.h; sourceTree = "<group>"; };
 		AA57C1CD1A6EDC0E0012A578 /* DateTimePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateTimePickerViewController.m; path = Sources/DateTimePickerViewController.m; sourceTree = "<group>"; };
 		AA6016BA1A4DB43400349E45 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Resources/Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
@@ -343,6 +351,10 @@
 		AA2A28861A45A9BC00C8028E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AA473B1A1A71C49F00D69160 /* public_transport_unselected.png */,
+				AA473B1B1A71C49F00D69160 /* walking_unselected.png */,
+				AA473B181A71AC0300D69160 /* walking_white.png */,
+				AA473B161A71ABEC00D69160 /* public_transport_white.png */,
 				AAEA336B1A6D796C0003457D /* settings.png */,
 				AAF859DC1A61FBC800FD950A /* next_step.png */,
 				AAF859D71A617D4C00FD950A /* walking.png */,
@@ -468,6 +480,7 @@
 				AA2A28851A45928C00C8028E /* Montserrat-Regular.ttf in Resources */,
 				AAEA336C1A6D796C0003457D /* settings.png in Resources */,
 				AA2A28BB1A45C4FD00C8028E /* difficulty_activated.png in Resources */,
+				AA473B171A71ABEC00D69160 /* public_transport_white.png in Resources */,
 				AA2A28BC1A45C4FD00C8028E /* difficulty_deactivated.png in Resources */,
 				AA2A28581A45873400C8028E /* LaunchScreen.xib in Resources */,
 				AA6016F01A531F0D00349E45 /* poi_pin.png in Resources */,
@@ -475,6 +488,9 @@
 				AA2A28551A45873400C8028E /* Images.xcassets in Resources */,
 				AA6016EC1A50CEAC00349E45 /* location.png in Resources */,
 				AA6016BD1A4DB45200349E45 /* GoogleMaps.bundle in Resources */,
+				AA473B1C1A71C49F00D69160 /* public_transport_unselected.png in Resources */,
+				AA473B191A71AC0300D69160 /* walking_white.png in Resources */,
+				AA473B1D1A71C49F00D69160 /* walking_unselected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
