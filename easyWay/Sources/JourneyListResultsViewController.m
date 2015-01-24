@@ -91,6 +91,9 @@ static BOOL isHeightTableViewSet = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
+/*  Fields container will contain the start field,
+    the destination field, and the switch button for
+    switching the content of both text fields. */
 - (UIView *)loadFieldsContainer {
     UIView *fieldsContainer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, 90.0f)];
     [fieldsContainer setBackgroundColor:[ColorFactory redLightColor]];
@@ -386,6 +389,8 @@ static BOOL isHeightTableViewSet = NO;
     CGFloat height;
     
     if (tableView == self.journeysTableView) {
+        /* We calculate the height of the cell with the number of steps
+            in the journey concerned */
         NSDictionary *journey = [self.journeys objectAtIndex:indexPath.row];
         NSArray *sections = [journey objectForKey:@"sections"];
         CGFloat typePosX = 0.0f;
@@ -686,7 +691,6 @@ static BOOL isHeightTableViewSet = NO;
 #pragma mark - DateTime Picker delegate 
 
 - (void)dateTimeChanged:(NSDate *)date type:(kDateTimeType)type {
-    NSLog(@"NEW DATE ==== %@", date);
     self.dateSelected  = date;
     self.dateTimeType = type;
     if (type == kDepartureTime) {

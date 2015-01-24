@@ -71,12 +71,11 @@ static const BOOL isCurrentLocation = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
+/*  Fields container will contain the start field,
+    the destination field, and the switch button for
+    switching the content of both text fields.
+    At the bottom, we add the search journey button */
 - (UIView *)loadFieldsContainerView {
-    /*  Fields container will contain the start field,
-     the destination field, and the switch button for
-     switching the content of both text fields.
-     At the bottom, we add the search journey button
-     */
     UIView *fieldsContainer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, 150.0f)];
     [fieldsContainer setBackgroundColor:[ColorFactory redLightColor]];
     
@@ -566,6 +565,7 @@ static const BOOL isCurrentLocation = YES;
 
 #pragma mark - GMSMapView delegate
 
+/* Call Back when the map has moved and stoped at the "position". */
 - (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
     [self.webServices cancelAllOperations];
     if (self.poiBtn.tag == 1) {
