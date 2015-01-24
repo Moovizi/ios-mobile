@@ -71,14 +71,16 @@ static const BOOL isCurrentLocation = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
-- (void)loadView {
-    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.view setBackgroundColor:[ColorFactory beigeColor]];
-    
-    /* Start and end location fields container */
+- (UIView *)loadFieldsContainerView {
+    /*  Fields container will contain the start field,
+     the destination field, and the switch button for
+     switching the content of both text fields.
+     At the bottom, we add the search journey button
+     */
     UIView *fieldsContainer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.width, 150.0f)];
     [fieldsContainer setBackgroundColor:[ColorFactory redLightColor]];
-        
+    
+    /* Start field button */
     self.startField = [[UITextField alloc] initWithFrame:CGRectMake(leftPadding, 20.0f, self.view.width - (leftPadding * 2) - 30.0f - 10, 30.0f)];
     self.startField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 4.0f, 20.0f)];
     self.startField.leftViewMode = UITextFieldViewModeAlways;
@@ -95,24 +97,26 @@ static const BOOL isCurrentLocation = YES;
     self.startField.rightViewMode = UITextFieldViewModeWhileEditing;
     [self.startField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [fieldsContainer addSubview:self.startField];
-
-    self.endField = [[UITextField alloc] initWithFrame:CGRectMake(self.startField.left, self.startField.bottom + 5.0f, self.startField.width , 30.0f)];
-    self.endField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4.0f, 20.0f)];
-    self.endField.leftViewMode = UITextFieldViewModeAlways;
-    self.endField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.endField.placeholder = @"Entrez une adresse d'arrivée";
-    self.endField.font = [UIFont fontWithName:@"Montserrat-Regular" size:14.0f];
-    [self.endField setBackgroundColor:[UIColor whiteColor]];
-    self.endField.textColor = [ColorFactory blackTextColor];
-    self.endField.layer.borderColor = [ColorFactory grayBorder].CGColor;
-    self.endField.layer.borderWidth = 1.0f;
-    self.endField.layer.cornerRadius = 4.0f;
-    self.endField.delegate = self;
-    self.endField.tag = NO;
-    self.endField.rightViewMode = UITextFieldViewModeWhileEditing;
-    [self.endField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    [fieldsContainer addSubview:self.endField];
     
+    /* Destination field button */
+    self.destinationField = [[UITextField alloc] initWithFrame:CGRectMake(self.startField.left, self.startField.bottom + 5.0f, self.startField.width , 30.0f)];
+    self.destinationField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4.0f, 20.0f)];
+    self.destinationField.leftViewMode = UITextFieldViewModeAlways;
+    self.destinationField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.destinationField.placeholder = @"Entrez une adresse d'arrivée";
+    self.destinationField.font = [UIFont fontWithName:@"Montserrat-Regular" size:14.0f];
+    self.destinationField.backgroundColor = [UIColor whiteColor];
+    self.destinationField.textColor = [ColorFactory blackTextColor];
+    self.destinationField.layer.borderColor = [ColorFactory grayBorder].CGColor;
+    self.destinationField.layer.borderWidth = 1.0f;
+    self.destinationField.layer.cornerRadius = 4.0f;
+    self.destinationField.delegate = self;
+    self.destinationField.tag = NO;
+    self.destinationField.rightViewMode = UITextFieldViewModeWhileEditing;
+    [self.destinationField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [fieldsContainer addSubview:self.destinationField];
+    
+    /* deleteTextView button for clearing content of text fields */
     self.deleteTextView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30.0f, 30.0f)];
     UIButton *deleteTextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     deleteTextBtn.frame = CGRectMake(0.0f, 5.0f, 20.0f, 20.0f);
@@ -120,16 +124,18 @@ static const BOOL isCurrentLocation = YES;
     [deleteTextBtn addTarget:self action:@selector(clearTextField:) forControlEvents:UIControlEventTouchUpInside];
     [self.deleteTextView addSubview:deleteTextBtn];
     
+    /* Switch text fields content button */
     self.switchBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.switchBtn.frame = CGRectMake(self.startField.right + 5.0f, self.startField.bottom + 2.5f - 15.0f, 30.0f, 30.0f);
     [self.switchBtn setBackgroundImage:[UIImage imageNamed:@"switch.png"] forState:UIControlStateNormal];
     [self.switchBtn addTarget:self action:@selector(switchLocations:) forControlEvents:UIControlEventTouchUpInside];
     [fieldsContainer addSubview:self.switchBtn];
     
+    /* Search Journey button */
     UIButton *searchJourneyBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     searchJourneyBtn.frame = CGRectMake(0.0f, 0.0f, 100.0f, 30.0f);
     searchJourneyBtn.center = fieldsContainer.center;
-    searchJourneyBtn.top = self.endField.bottom + 20.0f;
+    searchJourneyBtn.top = self.destinationField.bottom + 20.0f;
     [searchJourneyBtn setTitle:@"Rechercher" forState:UIControlStateNormal];
     [searchJourneyBtn setBackgroundColor:[ColorFactory yellowColor]];
     [searchJourneyBtn.titleLabel setFont:[UIFont fontWithName:@"Montserrat-Bold" size:14.0f]];
@@ -139,9 +145,19 @@ static const BOOL isCurrentLocation = YES;
     searchJourneyBtn.layer.cornerRadius = 4.0f;
     [searchJourneyBtn addTarget:self action:@selector(searchJourneyBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
     [fieldsContainer addSubview:searchJourneyBtn];
+
+    return fieldsContainer;
+}
+
+- (void)loadView {
+    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.view setBackgroundColor:[ColorFactory beigeColor]];
+
+    /* We load the fields view */
+    UIView *fieldsContainer = [self loadFieldsContainerView];
     [self.view addSubview:fieldsContainer];
     
-    /* Draw filters */
+    /*  Draw filters of the pins on the map */
     UIView *filterContainer = [[UIView alloc] initWithFrame:CGRectMake(0, fieldsContainer.bottom, self.view.width, 60.0f)];
     filterContainer.layer.borderWidth = 1.0f;
     filterContainer.layer.borderColor = [ColorFactory grayBorder].CGColor;
@@ -175,6 +191,7 @@ static const BOOL isCurrentLocation = YES;
     [filterContainer addSubview:difficultiesBtn];
     [self.view addSubview:filterContainer];
     
+    /* We set the location manager for setting the mapView */
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
@@ -184,6 +201,8 @@ static const BOOL isCurrentLocation = YES;
     }
     [self.locationManager startUpdatingLocation];
     
+    /*  After setting the location manager, we can center the camera
+        on our position and draw the map on the view */
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.locationManager.location.coordinate.latitude
                                                             longitude:self.locationManager.location.coordinate.longitude
                                                                  zoom:16];
@@ -195,6 +214,8 @@ static const BOOL isCurrentLocation = YES;
     self.mapView.delegate = self;
     [self.view addSubview:self.mapView];
     
+    /*  The table view for the results of the autocomplete research
+        Used to displau list of places that user might search */
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 50.0f, self.view.width, self.view.height - 50.0f) style:UITableViewStylePlain];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.tableView.delegate = self;
@@ -204,6 +225,9 @@ static const BOOL isCurrentLocation = YES;
 }
 
 - (void)viewDidLayoutSubviews {
+    
+    /* Those two calls are done for displaying the cell
+        separtor with the full width */
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -215,10 +239,12 @@ static const BOOL isCurrentLocation = YES;
 
 #pragma mark - Local functions
 
+/*  A local function to check if one field has
+    selected our current position for the address */
 - (BOOL)isThereCurrentLocationSelected {
     if ([self.activeField.text length] == 0 &&
         !self.startField.tag == isCurrentLocation &&
-        !self.endField.tag == isCurrentLocation) {
+        !self.destinationField.tag == isCurrentLocation) {
         return NO;
     }
     return YES;
@@ -276,14 +302,14 @@ static const BOOL isCurrentLocation = YES;
             }
         }
     }
-    else if (requestType == kGETJaccedePOINearLocation) {
+    else if (requestType == kGETPOINearLocation) {
         [self.mapView clear];
         self.placesNearMeArray = [response objectForKey:@"results"];
         for (NSDictionary *poi in self.placesNearMeArray) {
             GMSMarker *marker = [[GMSMarker alloc] init];
             NSDictionary *location = [[poi valueForKey:@"geometry"] objectForKey:@"location"];
             marker.position = CLLocationCoordinate2DMake([[location objectForKey:@"lat"] doubleValue], [[location objectForKey:@"lng"] doubleValue]);
-            marker.icon = [UIImage imageWithImage:[UIImage imageNamed:@"poi_map_yellow.png"] scaledToSize:CGSizeMake(25.0f, 25.0f)];
+            marker.icon = [UIImage imageWithImage:[UIImage imageNamed:@"poi_pin.png"] scaledToSize:CGSizeMake(25.0f, 25.0f)];
             marker.map = self.mapView;
         }
     }
@@ -303,8 +329,8 @@ static const BOOL isCurrentLocation = YES;
             journeyListVC.startField.text = self.startField.text;
             journeyListVC.startField.tag = self.startField.tag;
             journeyListVC.startGoogleObject = self.startGoogleObject;
-            journeyListVC.endField.text = self.endField.text;
-            journeyListVC.endField.tag = self.endField.tag;
+            journeyListVC.endField.text = self.destinationField.text;
+            journeyListVC.endField.tag = self.destinationField.tag;
             journeyListVC.endGoogleObject = self.endGoogleObject;
             journeyListVC.placesStartFieldArray = self.placesStartFieldArray;
             journeyListVC.placesEndFieldArray = self.placesEndFieldArray;
@@ -391,7 +417,7 @@ static const BOOL isCurrentLocation = YES;
         if (self.activeField == self.startField && self.startGoogleObject) {
             self.startGoogleObject = nil;
         }
-        else if (self.activeField == self.endField && self.endGoogleObject) {
+        else if (self.activeField == self.destinationField && self.endGoogleObject) {
             self.endGoogleObject = nil;
         }
     }
@@ -427,7 +453,7 @@ static const BOOL isCurrentLocation = YES;
     if (textField.tag != isCurrentLocation
         && ((textField == self.startField &&
              self.startGoogleObject == nil)
-            || (textField == self.endField &&
+            || (textField == self.destinationField &&
                 self.endGoogleObject == nil) )) {
         textField.text = @"";
     }
@@ -490,7 +516,7 @@ static const BOOL isCurrentLocation = YES;
     [UIView animateWithDuration:0.3f animations:^{
         self.tableView.hidden = NO;
         self.switchBtn.hidden = YES;
-        if (textField == self.endField) {
+        if (textField == self.destinationField) {
             self.startField.hidden = YES;
         }
         textField.frame = CGRectMake(leftPadding, 10.0f, self.view.width - (leftPadding * 2), 30.0f);
@@ -505,7 +531,7 @@ static const BOOL isCurrentLocation = YES;
     self.activeField = nil;
     CGRect newFrame;
     if (textField == self.startField) {
-        newFrame = CGRectMake(self.endField.left, 20.0f, self.endField.width, 30.0f);
+        newFrame = CGRectMake(self.destinationField.left, 20.0f, self.destinationField.width, 30.0f);
     }
     else {
         self.startField.hidden = NO;
@@ -535,7 +561,7 @@ static const BOOL isCurrentLocation = YES;
                                        [NSString stringWithFormat:@"%f,%f", self.mapView.camera.target.latitude, self.mapView.camera.target.longitude], @"location",
                                        [NSString stringWithFormat:@"%f", radius], @"radius",
                                        nil];
-    [self.webServices GEToperation:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json" parameters:parameters header:nil requestType:kGETJaccedePOINearLocation];
+    [self.webServices GEToperation:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json" parameters:parameters header:nil requestType:kGETPOINearLocation];
 }
 
 #pragma mark - GMSMapView delegate
@@ -592,7 +618,7 @@ static const BOOL isCurrentLocation = YES;
         }
         self.placesStartFieldArray = [NSArray array];
     }
-    else if (self.activeField == self.endField) {
+    else if (self.activeField == self.destinationField) {
         if (self.endGoogleObject) {
             self.endGoogleObject = nil;
         }
@@ -608,12 +634,12 @@ static const BOOL isCurrentLocation = YES;
     self.startGoogleObject = tmpGoogleObject;
     
     NSString *stringAddress = self.startField.text;
-    self.startField.text = self.endField.text;
-    self.endField.text = stringAddress;
+    self.startField.text = self.destinationField.text;
+    self.destinationField.text = stringAddress;
     
     BOOL isCurrentLocationTmp = self.startField.tag;
-    self.startField.tag = self.endField.tag;
-    self.endField.tag = isCurrentLocationTmp;
+    self.startField.tag = self.destinationField.tag;
+    self.destinationField.tag = isCurrentLocationTmp;
     
     NSArray *placesArrayTmp = self.placesStartFieldArray;
     self.placesStartFieldArray = self.placesEndFieldArray;
@@ -622,7 +648,7 @@ static const BOOL isCurrentLocation = YES;
 
 - (IBAction)searchJourneyBtnTapped:(id)sender {
     
-   if ([self.startField.text length] == 0 || [self.endField.text length] == 0) {
+   if ([self.startField.text length] == 0 || [self.destinationField.text length] == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Champs vide(s)"
                                                         message:@"Veuillez entrer une adresse de départ et d'arrivée"
                                                        delegate:self
@@ -669,7 +695,7 @@ static const BOOL isCurrentLocation = YES;
                            forKey:@"from"];
         }
         
-        if (self.endField.tag == isCurrentLocation) {
+        if (self.destinationField.tag == isCurrentLocation) {
             [parameters setObject:[NSString stringWithFormat:@"%f;%f", self.locationManager.location.coordinate.longitude,
                                    self.locationManager.location.coordinate.latitude] forKey:@"to"];
         }

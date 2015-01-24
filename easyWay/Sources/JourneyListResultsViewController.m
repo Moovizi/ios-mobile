@@ -525,7 +525,7 @@ static BOOL isHeightTableViewSet = NO;
                 homeVC.startField.text = @"Votre position actuelle";
             }
             else {
-                homeVC.endField.text = @"Votre position actuelle";
+                homeVC.destinationField.text = @"Votre position actuelle";
             }
             if (self.activeField == self.startField && self.startGoogleObject) {
                 self.startGoogleObject = nil;
@@ -551,7 +551,7 @@ static BOOL isHeightTableViewSet = NO;
                 homeVC.startField.text = self.activeField.text;
             }
             else {
-                homeVC.endField.text = self.activeField.text;
+                homeVC.destinationField.text = self.activeField.text;
             }
         }
         [self.activeField resignFirstResponder];
@@ -585,7 +585,7 @@ static BOOL isHeightTableViewSet = NO;
         }
         else if (textField == self.endField &&
                  self.endGoogleObject == nil) {
-            textField.text = homeVC.endField.text;
+            textField.text = homeVC.destinationField.text;
         }
     }
     [textField resignFirstResponder];
@@ -765,13 +765,13 @@ static BOOL isHeightTableViewSet = NO;
     self.startField.text = self.endField.text;
     homeVC.startField.text = self.endField.text;
     self.endField.text = stringAddress;
-    homeVC.endField.text = stringAddress;
+    homeVC.destinationField.text = stringAddress;
     
     BOOL isCurrentLocationTmp = self.startField.tag;
     self.startField.tag = self.endField.tag;
     homeVC.startField.tag = self.endField.tag;
     self.endField.tag = isCurrentLocationTmp;
-    homeVC.endField.tag = isCurrentLocationTmp;
+    homeVC.destinationField.tag = isCurrentLocationTmp;
     
     NSArray *placesArrayTmp = self.placesStartFieldArray;
     self.placesStartFieldArray = self.placesEndFieldArray;

@@ -12,7 +12,7 @@ typedef enum kRequestType {
     kGETAddressFromInput,
     kGETDetailsStartInput,
     kGETDetailsDestinationInput,
-    kGETJaccedePOINearLocation,
+    kGETPOINearLocation,
     kGETJourney
 } kRequestType;
 

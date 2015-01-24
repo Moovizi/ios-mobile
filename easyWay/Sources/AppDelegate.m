@@ -29,8 +29,10 @@
     [GMSServices provideAPIKey:kGOOGLE_MAP_API_KEY];
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 
-    HomeViewController *mainVC = [[HomeViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:mainVC];
+    HomeViewController *homeViewController = [[HomeViewController alloc] init];
+    
+    /* Navigation bar and initialization */
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     nav.navigationBar.tintColor = [ColorFactory yellowColor];
     UIView *navLineBorder = [[UIView alloc] initWithFrame:CGRectMake(0, nav.navigationBar.bottom - 4.0f, self.window.frame.size.width, 4.0f)];
     [navLineBorder setBackgroundColor:[ColorFactory yellowColor]];

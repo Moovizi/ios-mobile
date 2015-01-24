@@ -11,7 +11,7 @@
 @interface HomeViewController : UIViewController
 
 @property (nonatomic, strong) UITextField *startField;
-@property (nonatomic, strong) UITextField *endField;
+@property (nonatomic, strong) UITextField *destinationField;
 @property (nonatomic, strong) NSDictionary *startGoogleObject;
 @property (nonatomic, strong) NSDictionary *endGoogleObject;
 @property (nonatomic, strong) NSArray *placesStartFieldArray;
