@@ -22,5 +22,5 @@ Pods/*
 Podfile.lock
 
 # Constants
-easyWay/Sources/Constants.h
-easyWay/Sources/Constants.m
+Moovizi/Sources/Constants.h
+Moovizi/Sources/Constants.m
