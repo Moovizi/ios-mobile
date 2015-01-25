@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface easyWayTests : XCTestCase
+@interface MooviziTests : XCTestCase
 
 @end
 
-@implementation easyWayTests
+@implementation MooviziTests
 
 - (void)setUp {
     [super setUp];

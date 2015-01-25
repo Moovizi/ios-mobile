@@ -16,7 +16,7 @@
 		AA2A284A1A45873400C8028E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2A28491A45873400C8028E /* main.m */; };
 		AA2A28551A45873400C8028E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA2A28541A45873400C8028E /* Images.xcassets */; };
 		AA2A28581A45873400C8028E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA2A28561A45873400C8028E /* LaunchScreen.xib */; };
-		AA2A28641A45873400C8028E /* easyWayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2A28631A45873400C8028E /* easyWayTests.m */; };
+		AA2A28641A45873400C8028E /* MooviziTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2A28631A45873400C8028E /* MooviziTests.m */; };
 		AA2A28781A458FCE00C8028E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2A28751A458FCE00C8028E /* AppDelegate.m */; };
 		AA2A28791A458FCE00C8028E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2A28771A458FCE00C8028E /* HomeViewController.m */; };
 		AA2A287E1A458FDC00C8028E /* ColorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2A287B1A458FDC00C8028E /* ColorFactory.m */; };
@@ -84,14 +84,14 @@
 		AA299C8B1A64228500DBF53E /* JourneyWalkingStepTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JourneyWalkingStepTableViewCell.m; path = Sources/JourneyWalkingStepTableViewCell.m; sourceTree = "<group>"; };
 		AA299C8D1A64358200DBF53E /* JourneyTransportStepTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JourneyTransportStepTableViewCell.h; path = Sources/JourneyTransportStepTableViewCell.h; sourceTree = "<group>"; };
 		AA299C8E1A64358200DBF53E /* JourneyTransportStepTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JourneyTransportStepTableViewCell.m; path = Sources/JourneyTransportStepTableViewCell.m; sourceTree = "<group>"; };
-		AA2A28441A45873400C8028E /* easyWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = easyWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2A28441A45873400C8028E /* Moovizi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moovizi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2A28481A45873400C8028E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA2A28491A45873400C8028E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AA2A28541A45873400C8028E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AA2A28571A45873400C8028E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		AA2A285D1A45873400C8028E /* easyWayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = easyWayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2A285D1A45873400C8028E /* MooviziTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MooviziTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA2A28621A45873400C8028E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA2A28631A45873400C8028E /* easyWayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = easyWayTests.m; sourceTree = "<group>"; };
+		AA2A28631A45873400C8028E /* MooviziTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MooviziTests.m; sourceTree = "<group>"; };
 		AA2A28741A458FCE00C8028E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Sources/AppDelegate.h; sourceTree = "<group>"; };
 		AA2A28751A458FCE00C8028E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Sources/AppDelegate.m; sourceTree = "<group>"; };
 		AA2A28761A458FCE00C8028E /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = Sources/HomeViewController.h; sourceTree = "<group>"; };
@@ -257,8 +257,8 @@
 		AA2A283B1A45873300C8028E = {
 			isa = PBXGroup;
 			children = (
-				AA2A28461A45873400C8028E /* easyWay */,
-				AA2A28601A45873400C8028E /* easyWayTests */,
+				AA2A28461A45873400C8028E /* Moovizi */,
+				AA2A28601A45873400C8028E /* MooviziTests */,
 				AA2A28451A45873400C8028E /* Products */,
 				55FBA174729B8E3559D8BC2C /* Pods */,
 				78DB20FB5780322C23D5920F /* Frameworks */,
@@ -268,13 +268,13 @@
 		AA2A28451A45873400C8028E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AA2A28441A45873400C8028E /* easyWay.app */,
-				AA2A285D1A45873400C8028E /* easyWayTests.xctest */,
+				AA2A28441A45873400C8028E /* Moovizi.app */,
+				AA2A285D1A45873400C8028E /* MooviziTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AA2A28461A45873400C8028E /* easyWay */ = {
+		AA2A28461A45873400C8028E /* Moovizi */ = {
 			isa = PBXGroup;
 			children = (
 				AA180F071A62E1B600797784 /* JourneyViews */,
@@ -290,7 +290,7 @@
 				AA2A28561A45873400C8028E /* LaunchScreen.xib */,
 				AA2A28471A45873400C8028E /* Supporting Files */,
 			);
-			path = easyWay;
+			path = Moovizi;
 			sourceTree = "<group>";
 		};
 		AA2A28471A45873400C8028E /* Supporting Files */ = {
@@ -302,13 +302,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		AA2A28601A45873400C8028E /* easyWayTests */ = {
+		AA2A28601A45873400C8028E /* MooviziTests */ = {
 			isa = PBXGroup;
 			children = (
-				AA2A28631A45873400C8028E /* easyWayTests.m */,
+				AA2A28631A45873400C8028E /* MooviziTests.m */,
 				AA2A28611A45873400C8028E /* Supporting Files */,
 			);
-			path = easyWayTests;
+			path = MooviziTests;
 			sourceTree = "<group>";
 		};
 		AA2A28611A45873400C8028E /* Supporting Files */ = {
@@ -393,9 +393,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA2A28431A45873400C8028E /* easyWay */ = {
+		AA2A28431A45873400C8028E /* Moovizi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA2A28671A45873400C8028E /* Build configuration list for PBXNativeTarget "easyWay" */;
+			buildConfigurationList = AA2A28671A45873400C8028E /* Build configuration list for PBXNativeTarget "Moovizi" */;
 			buildPhases = (
 				E7077AFA8FABDC4B67AED6D6 /* Check Pods Manifest.lock */,
 				AA2A28401A45873400C8028E /* Sources */,
@@ -407,14 +407,14 @@
 			);
 			dependencies = (
 			);
-			name = easyWay;
+			name = Moovizi;
 			productName = easyWay;
-			productReference = AA2A28441A45873400C8028E /* easyWay.app */;
+			productReference = AA2A28441A45873400C8028E /* Moovizi.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AA2A285C1A45873400C8028E /* easyWayTests */ = {
+		AA2A285C1A45873400C8028E /* MooviziTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AA2A286A1A45873400C8028E /* Build configuration list for PBXNativeTarget "easyWayTests" */;
+			buildConfigurationList = AA2A286A1A45873400C8028E /* Build configuration list for PBXNativeTarget "MooviziTests" */;
 			buildPhases = (
 				AA2A28591A45873400C8028E /* Sources */,
 				AA2A285A1A45873400C8028E /* Frameworks */,
@@ -425,9 +425,9 @@
 			dependencies = (
 				AA2A285F1A45873400C8028E /* PBXTargetDependency */,
 			);
-			name = easyWayTests;
+			name = MooviziTests;
 			productName = easyWayTests;
-			productReference = AA2A285D1A45873400C8028E /* easyWayTests.xctest */;
+			productReference = AA2A285D1A45873400C8028E /* MooviziTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -448,7 +448,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AA2A283F1A45873400C8028E /* Build configuration list for PBXProject "easyWay" */;
+			buildConfigurationList = AA2A283F1A45873400C8028E /* Build configuration list for PBXProject "Moovizi" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -461,8 +461,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA2A28431A45873400C8028E /* easyWay */,
-				AA2A285C1A45873400C8028E /* easyWayTests */,
+				AA2A28431A45873400C8028E /* Moovizi */,
+				AA2A285C1A45873400C8028E /* MooviziTests */,
 			);
 		};
 /* End PBXProject section */
@@ -566,7 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA2A28641A45873400C8028E /* easyWayTests.m in Sources */,
+				AA2A28641A45873400C8028E /* MooviziTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,7 +575,7 @@
 /* Begin PBXTargetDependency section */
 		AA2A285F1A45873400C8028E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AA2A28431A45873400C8028E /* easyWay */;
+			target = AA2A28431A45873400C8028E /* Moovizi */;
 			targetProxy = AA2A285E1A45873400C8028E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -674,16 +674,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/easyWay/Resources/Frameworks",
+					"$(PROJECT_DIR)/Moovizi/Resources/Frameworks",
 					"/Users/Sandro/Downloads/GoogleMaps-iOS-1.9.1",
 				);
-				INFOPLIST_FILE = easyWay/Info.plist;
+				INFOPLIST_FILE = Moovizi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Moovizi;
 			};
 			name = Debug;
 		};
@@ -693,16 +693,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/easyWay/Resources/Frameworks",
+					"$(PROJECT_DIR)/Moovizi/Resources/Frameworks",
 					"/Users/Sandro/Downloads/GoogleMaps-iOS-1.9.1",
 				);
-				INFOPLIST_FILE = easyWay/Info.plist;
+				INFOPLIST_FILE = Moovizi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Moovizi;
 			};
 			name = Release;
 		};
@@ -718,10 +718,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = easyWayTests/Info.plist;
+				INFOPLIST_FILE = MooviziTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/easyWay.app/easyWay";
+				PRODUCT_NAME = MooviziTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moovizi.app/Moovizi";
 			};
 			name = Debug;
 		};
@@ -733,17 +733,17 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = easyWayTests/Info.plist;
+				INFOPLIST_FILE = MooviziTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/easyWay.app/easyWay";
+				PRODUCT_NAME = MooviziTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moovizi.app/Moovizi";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AA2A283F1A45873400C8028E /* Build configuration list for PBXProject "easyWay" */ = {
+		AA2A283F1A45873400C8028E /* Build configuration list for PBXProject "Moovizi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA2A28651A45873400C8028E /* Debug */,
@@ -752,7 +752,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA2A28671A45873400C8028E /* Build configuration list for PBXNativeTarget "easyWay" */ = {
+		AA2A28671A45873400C8028E /* Build configuration list for PBXNativeTarget "Moovizi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA2A28681A45873400C8028E /* Debug */,
@@ -761,7 +761,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AA2A286A1A45873400C8028E /* Build configuration list for PBXNativeTarget "easyWayTests" */ = {
+		AA2A286A1A45873400C8028E /* Build configuration list for PBXNativeTarget "MooviziTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AA2A286B1A45873400C8028E /* Debug */,
