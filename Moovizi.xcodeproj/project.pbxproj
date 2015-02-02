@@ -53,6 +53,8 @@
 		AA6016F01A531F0D00349E45 /* poi_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = AA6016EF1A531F0D00349E45 /* poi_pin.png */; };
 		AA7A2E311A6869C800C46FC4 /* TransportStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A2E301A6869C800C46FC4 /* TransportStepView.m */; };
 		AA7A2E341A69CF0500C46FC4 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A2E331A69CF0500C46FC4 /* CircleView.m */; };
+		AA91DE231A7E6CE700CA80A7 /* CreateIssueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA91DE221A7E6CE700CA80A7 /* CreateIssueViewController.m */; };
+		AA91DE251A7E877100CA80A7 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = AA91DE241A7E877100CA80A7 /* camera.png */; };
 		AAEA336C1A6D796C0003457D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = AAEA336B1A6D796C0003457D /* settings.png */; };
 		AAF859D41A6179FF00FD950A /* JourneyResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF859D31A6179FF00FD950A /* JourneyResultTableViewCell.m */; };
 		AAF859D61A617D2000FD950A /* public_transport.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF859D51A617D2000FD950A /* public_transport.png */; };
@@ -139,6 +141,9 @@
 		AA7A2E301A6869C800C46FC4 /* TransportStepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TransportStepView.m; path = Sources/TransportStepView.m; sourceTree = "<group>"; };
 		AA7A2E321A69CF0500C46FC4 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircleView.h; path = Sources/CircleView.h; sourceTree = "<group>"; };
 		AA7A2E331A69CF0500C46FC4 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CircleView.m; path = Sources/CircleView.m; sourceTree = "<group>"; };
+		AA91DE211A7E6CE700CA80A7 /* CreateIssueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreateIssueViewController.h; path = Sources/CreateIssueViewController.h; sourceTree = "<group>"; };
+		AA91DE221A7E6CE700CA80A7 /* CreateIssueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CreateIssueViewController.m; path = Sources/CreateIssueViewController.m; sourceTree = "<group>"; };
+		AA91DE241A7E877100CA80A7 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = camera.png; path = Resources/Images/camera.png; sourceTree = "<group>"; };
 		AAEA336B1A6D796C0003457D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = Resources/Images/settings.png; sourceTree = "<group>"; };
 		AAF859D21A6179FF00FD950A /* JourneyResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JourneyResultTableViewCell.h; path = Sources/JourneyResultTableViewCell.h; sourceTree = "<group>"; };
 		AAF859D31A6179FF00FD950A /* JourneyResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JourneyResultTableViewCell.m; path = Sources/JourneyResultTableViewCell.m; sourceTree = "<group>"; };
@@ -278,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				AA180F071A62E1B600797784 /* JourneyViews */,
+				AA91DE201A7E6CBA00CA80A7 /* IssueViews */,
 				AA2A28741A458FCE00C8028E /* AppDelegate.h */,
 				AA2A28751A458FCE00C8028E /* AppDelegate.m */,
 				AA2A28761A458FCE00C8028E /* HomeViewController.h */,
@@ -351,6 +357,7 @@
 		AA2A28861A45A9BC00C8028E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AA91DE241A7E877100CA80A7 /* camera.png */,
 				AA473B1A1A71C49F00D69160 /* public_transport_unselected.png */,
 				AA473B1B1A71C49F00D69160 /* walking_unselected.png */,
 				AA473B181A71AC0300D69160 /* walking_white.png */,
@@ -388,6 +395,15 @@
 				AA6016BA1A4DB43400349E45 /* GoogleMaps.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA91DE201A7E6CBA00CA80A7 /* IssueViews */ = {
+			isa = PBXGroup;
+			children = (
+				AA91DE211A7E6CE700CA80A7 /* CreateIssueViewController.h */,
+				AA91DE221A7E6CE700CA80A7 /* CreateIssueViewController.m */,
+			);
+			name = IssueViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +502,7 @@
 				AA6016F01A531F0D00349E45 /* poi_pin.png in Resources */,
 				AAF859DD1A61FBC800FD950A /* next_step.png in Resources */,
 				AA2A28551A45873400C8028E /* Images.xcassets in Resources */,
+				AA91DE251A7E877100CA80A7 /* camera.png in Resources */,
 				AA6016EC1A50CEAC00349E45 /* location.png in Resources */,
 				AA6016BD1A4DB45200349E45 /* GoogleMaps.bundle in Resources */,
 				AA473B1C1A71C49F00D69160 /* public_transport_unselected.png in Resources */,
@@ -544,6 +561,7 @@
 				AA7A2E341A69CF0500C46FC4 /* CircleView.m in Sources */,
 				AA2A287E1A458FDC00C8028E /* ColorFactory.m in Sources */,
 				AAF859DB1A61819900FD950A /* DateTimeTool.m in Sources */,
+				AA91DE231A7E6CE700CA80A7 /* CreateIssueViewController.m in Sources */,
 				AA2A288B1A45AAE500C8028E /* UIImage+Additions.m in Sources */,
 				AA6016EA1A50A3EF00349E45 /* AddressTableViewCell.m in Sources */,
 				AA6016E71A4E19BB00349E45 /* WebServices.m in Sources */,
@@ -673,10 +691,7 @@
 			baseConfigurationReference = 2E4B4B700525432EA31AA773 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Moovizi/Resources/Frameworks",
-					"/Users/Sandro/Downloads/GoogleMaps-iOS-1.9.1",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Moovizi/Resources/Frameworks";
 				INFOPLIST_FILE = Moovizi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -692,10 +707,7 @@
 			baseConfigurationReference = A946433C6F43101B9A491235 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/Moovizi/Resources/Frameworks",
-					"/Users/Sandro/Downloads/GoogleMaps-iOS-1.9.1",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Moovizi/Resources/Frameworks";
 				INFOPLIST_FILE = Moovizi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

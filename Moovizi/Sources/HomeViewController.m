@@ -15,12 +15,14 @@
 #import "AddressTableViewCell.h"
 #import "MBProgressHUD.h"
 #import "JourneyListResultsViewController.h"
+#import "CreateIssueViewController.h"
 #import "Constants.h"
 
 // UI Tools Imports
 #import "UIView+Additions.h"
 #import "ColorFactory.h"
 #import "UIImage+Additions.h"
+#import "CircleView.h"
 
 #import "DateTimeTool.h"
 
@@ -42,6 +44,8 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSArray *placesNearMeArray;
 @property (nonatomic, strong) NSArray *placesArray;
+@property (nonatomic, strong) UIButton *addIssueBtn;
+@property (nonatomic, strong) UIButton *currentLocationBtn;
 
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -209,9 +213,35 @@ static const BOOL isCurrentLocation = YES;
     self.mapView = [GMSMapView mapWithFrame:CGRectMake(0, filterContainer.bottom, self.view.width, self.view.height - difficultiesBtn.height - fieldsContainer.height) camera:camera];
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.mapView.myLocationEnabled = YES;
-    self.mapView.settings.myLocationButton = YES;
     self.mapView.delegate = self;
     [self.view addSubview:self.mapView];
+    
+    self.addIssueBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.addIssueBtn setTitle:@"Déclarer un obstacle" forState:UIControlStateNormal];
+    self.addIssueBtn.titleLabel.font = [UIFont fontWithName:@"Montserrat-Regular" size:14.0f];
+    self.addIssueBtn.backgroundColor = [ColorFactory redBoldColor];
+    [self.addIssueBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.addIssueBtn.frame = CGRectMake(10.0f, self.mapView.height - 10.0f, self.mapView.width - 70.0f, 40.0f);
+    self.addIssueBtn.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.addIssueBtn.layer.cornerRadius = 4.0f;
+    self.addIssueBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.addIssueBtn.layer.borderWidth = 1.0f;
+    [self.addIssueBtn addTarget:self action:@selector(createNewIssue:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:self.addIssueBtn];
+    
+    self.currentLocationBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.currentLocationBtn.frame = CGRectMake(self.addIssueBtn.right + 10.0f, 0.0f, 40.0f, 40.0f);
+    self.currentLocationBtn.backgroundColor = [UIColor clearColor];
+    CircleView *currentLocation = [[CircleView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 40.0f, 40.0f) color:[UIColor whiteColor] borderColor:[ColorFactory grayBorder]];
+    UIImageView *currentLocationImg = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+    currentLocationImg.center = CGPointMake(currentLocation.width / 2, currentLocation.height / 2);
+    currentLocationImg.image = [UIImage imageNamed:@"location.png"];
+    [currentLocation addSubview:currentLocationImg];
+    currentLocation.userInteractionEnabled = NO;
+    currentLocationImg.userInteractionEnabled = NO;
+    [self.currentLocationBtn addSubview:currentLocation];
+    [self.currentLocationBtn addTarget:self action:@selector(moveToCurrentLocation:) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:self.currentLocationBtn];
     
     /*  The table view for the results of the autocomplete research
         Used to displau list of places that user might search */
@@ -224,6 +254,9 @@ static const BOOL isCurrentLocation = YES;
 }
 
 - (void)viewDidLayoutSubviews {
+    
+    self.addIssueBtn.bottom = self.mapView.height - 10.0f;
+    self.currentLocationBtn.top = self.addIssueBtn.top;
     
     /* Those two calls are done for displaying the cell
         separtor with the full width */
@@ -603,6 +636,43 @@ static const BOOL isCurrentLocation = YES;
 }
 
 #pragma mark - UIButtons actions
+
+- (IBAction)createNewIssue:(id)sender {
+    CreateIssueViewController *createIssueVC = [[CreateIssueViewController alloc] init];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createIssueVC];
+    nav.navigationBar.tintColor = [ColorFactory yellowColor];
+    UIView *navLineBorder = [[UIView alloc] initWithFrame:CGRectMake(0, nav.navigationBar.bottom - 4.0f, self.view.width, 4.0f)];
+    [navLineBorder setBackgroundColor:[ColorFactory yellowColor]];
+    [nav.navigationBar addSubview:navLineBorder];
+    nav.navigationBar.translucent = NO;
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName: [ColorFactory yellowColor],
+                                                           NSFontAttributeName : [UIFont fontWithName:@"Montserrat-Regular" size:21]
+                                                           }];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName: [ColorFactory yellowColor],
+                                                           NSFontAttributeName : [UIFont fontWithName:@"Montserrat-Regular" size:21]
+                                                           }
+                                                forState:UIControlStateNormal];
+    
+    
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+- (IBAction)moveToCurrentLocation:(id)sender {
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [self.mapView animateToLocation:self.locationManager.location.coordinate];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Localisation"
+                                                        message:@"Afin de pouvoir vous localiser, activez la localisation dans Règlages -> Confidentialité -> Service de localisation."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
 
 - (IBAction)clearTextField:(id)sender {
     self.activeField.text = @"";

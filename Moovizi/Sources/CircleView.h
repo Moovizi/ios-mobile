@@ -11,5 +11,6 @@
 @interface CircleView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color;
+- (instancetype)initWithFrame:(CGRect)frame color:(UIColor *)color borderColor:(UIColor *)borderColor;
 
 @end
