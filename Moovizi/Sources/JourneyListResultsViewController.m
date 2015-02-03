@@ -263,7 +263,7 @@ static BOOL isHeightTableViewSet = NO;
     }
 }
 
-- (void)GEToperationDone:(kRequestType)requestType response:(NSDictionary *)response {
+- (void)operationDone:(kRequestType)requestType response:(NSDictionary *)response {
     if (requestType == kGETAddressFromInput) {
         if ([response objectForKey:@"predictions"]) {
             if (self.activeField == self.startField) {
@@ -376,11 +376,14 @@ static BOOL isHeightTableViewSet = NO;
                                    dictionaryWithObjectsAndKeys:kNAVITIA_API_KEY,
                                    @"Authorization",
                                    nil];
+    NSMutableDictionary *request = [NSMutableDictionary
+                                    dictionaryWithObjectsAndKeys:parameters, @"parameters",
+                                    header, @"header",
+                                    [NSNumber numberWithInt:kGETJourney], @"requestType",
+                                    @"http://api.navitia.io/v1/journeys", @"URL",
+                                    nil];
     
-    [self.webServices GEToperation:@"http://api.navitia.io/v1/journeys"
-                        parameters:parameters
-                            header:header
-                       requestType:kGETJourney];
+    [self.webServices GEToperation:request];
 }
 
 #pragma mark - UITableView datasource
@@ -547,10 +550,12 @@ static BOOL isHeightTableViewSet = NO;
                                                kGOOGLE_PLACES_API_KEY, @"key",
                                                [[self.placesArray objectAtIndex:indexPath.row] objectForKey:@"place_id"], @"placeid",
                                                nil];
-            [self.webServices GEToperation:@"https://maps.googleapis.com/maps/api/place/details/json"
-                                parameters:parameters
-                                    header:nil
-                               requestType:(self.activeField == self.startField ? kGETDetailsStartInput : kGETDetailsDestinationInput)];
+            NSMutableDictionary *request = [NSMutableDictionary
+                                            dictionaryWithObjectsAndKeys:parameters, @"parameters",
+                                            [NSNumber numberWithInt:(self.activeField == self.startField ? kGETDetailsStartInput : kGETDetailsDestinationInput)], @"requestType",
+                                            @"https://maps.googleapis.com/maps/api/place/details/json", @"URL",
+                                            nil];
+            [self.webServices GEToperation:request];
             self.activeField.text = [[self.placesArray objectAtIndex:indexPath.row] objectForKey:@"description"];
             if (self.activeField == self.startField) {
                 homeVC.startField.text = self.activeField.text;
@@ -624,8 +629,12 @@ static BOOL isHeightTableViewSet = NO;
                                            @"fr", @"language",
                                            @[@"establishment", @"geocode"], @"types",
                                            nil];
-        [self.webServices GEToperation:@"https://maps.googleapis.com/maps/api/place/autocomplete/json"
-                            parameters:parameters header:nil requestType:kGETAddressFromInput];
+        NSMutableDictionary *request = [NSMutableDictionary
+                                        dictionaryWithObjectsAndKeys:parameters, @"parameters",
+                                        [NSNumber numberWithInt:kGETAddressFromInput], @"requestType",
+                                        @"https://maps.googleapis.com/maps/api/place/autocomplete/json", @"URL",
+                                        nil];
+        [self.webServices GEToperation:request];
     }
     else {
         textField.rightView = nil;

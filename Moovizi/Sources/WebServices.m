@@ -36,7 +36,8 @@
     return self;
 }
 
-- (void)GEToperation:(NSString *)url parameters:(NSMutableDictionary *)parameters header:(NSMutableDictionary *)header requestType:(kRequestType)requestType {
+- (void)GEToperation:(NSMutableDictionary *)request {
+    kRequestType requestType = [[request objectForKey:@"requestType"] intValue];
     
     if ([AFNetworkReachabilityManager sharedManager].reachable == NO) {
         if ([self.delegate respondsToSelector:@selector(internetNotAvailable:)]) {
@@ -45,14 +46,56 @@
         return;
     }
     
+    NSString *url = [request objectForKey:@"URL"];
+    NSMutableDictionary *parameters = [request objectForKey:@"parameters"];
+    NSMutableDictionary *header = [request objectForKey:@"header"];
+    
     self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     for (NSString *headerKey in header) {
         [self.manager.requestSerializer setValue:[header valueForKey:headerKey] forHTTPHeaderField:headerKey];
     }
     
     [self.manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([self.delegate respondsToSelector:@selector(GEToperationDone:response:)]) {
-            [self.delegate GEToperationDone:requestType response:responseObject];
+        if ([self.delegate respondsToSelector:@selector(operationDone:response:)]) {
+            [self.delegate operationDone:requestType response:responseObject];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"ERROR = %@", error);
+        NSLog(@"OPERATION ERROR =%@", operation.responseString);
+        if ([self.delegate respondsToSelector:@selector(requestFailed:error:)]) {
+            [self.delegate requestFailed:requestType error:error];
+        }
+    }];
+}
+
+- (void)POSTMediaOperation:(NSMutableDictionary *)request  {
+    kRequestType requestType = [[request objectForKey:@"requestType"] intValue];
+    
+    if ([AFNetworkReachabilityManager sharedManager].reachable == NO) {
+        if ([self.delegate respondsToSelector:@selector(internetNotAvailable:)]) {
+            [self.delegate internetNotAvailable:requestType];
+        }
+        return;
+    }
+    
+    NSString *url = [request objectForKey:@"URL"];
+    NSData *media = [request objectForKey:@"media"];
+    NSMutableDictionary *parameters = [request objectForKey:@"parameters"];
+    NSMutableDictionary *header = [request objectForKey:@"header"];
+    
+    self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    for (NSString *headerKey in header) {
+        [self.manager.requestSerializer setValue:[header valueForKey:headerKey] forHTTPHeaderField:headerKey];
+    }
+    
+    [self.manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        if (media) {
+            [formData appendPartWithFileData:media name:[request objectForKey:@"mediaNameParameter"] fileName:@"photo.jpg" mimeType:@"image/jpeg"];
+        }
+
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([self.delegate respondsToSelector:@selector(operationDone:response:)]) {
+            [self.delegate operationDone:requestType response:responseObject];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if ([self.delegate respondsToSelector:@selector(requestFailed:error:)]) {

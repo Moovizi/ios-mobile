@@ -27,7 +27,9 @@
 #import "DateTimeTool.h"
 
 @interface HomeViewController () <CLLocationManagerDelegate, UITextFieldDelegate,
-                                    UITableViewDataSource, UITableViewDelegate, WebServicesDelegate, GMSMapViewDelegate>
+                                    UITableViewDataSource, UITableViewDelegate,
+                                    WebServicesDelegate, GMSMapViewDelegate,
+                                    CreateIssueDelegate>
 
 @property (nonatomic, strong) WebServices *webServices;
 
@@ -282,6 +284,14 @@ static const BOOL isCurrentLocation = YES;
     return YES;
 }
 
+#pragma mark - CreateIssue Delegate 
+
+- (void)issueCreated:(NSDictionary *)issue {
+    if (self.poiBtn.tag == YES) {
+        // CREATE A MARKER FOR ISSUES !!
+    }
+}
+
 #pragma mark - WebServices Delegate
 
 - (void)internetNotAvailable:(kRequestType)requestType {
@@ -310,7 +320,7 @@ static const BOOL isCurrentLocation = YES;
     }
 }
 
-- (void)GEToperationDone:(kRequestType)requestType response:(NSDictionary *)response {
+- (void)operationDone:(kRequestType)requestType response:(NSDictionary *)response {
     if (requestType == kGETAddressFromInput) {
         if ([response objectForKey:@"predictions"]) {
             if (self.activeField == self.startField) {
@@ -458,10 +468,13 @@ static const BOOL isCurrentLocation = YES;
                                            kGOOGLE_PLACES_API_KEY, @"key",
                                            [[self.placesArray objectAtIndex:indexPath.row] objectForKey:@"place_id"], @"placeid",
                                            nil];
-        [self.webServices GEToperation:@"https://maps.googleapis.com/maps/api/place/details/json"
-                            parameters:parameters
-                                header:nil
-                           requestType:(self.activeField == self.startField ? kGETDetailsStartInput : kGETDetailsDestinationInput)];
+       
+        NSMutableDictionary *request = [NSMutableDictionary
+                                        dictionaryWithObjectsAndKeys:parameters, @"parameters",
+                                                                    [NSNumber numberWithInt:(self.activeField == self.startField ? kGETDetailsStartInput : kGETDetailsDestinationInput)], @"requestType",
+                                                                    @"https://maps.googleapis.com/maps/api/place/details/json", @"URL",
+                                                                    nil];
+        [self.webServices GEToperation:request];
         self.activeField.text = [[self.placesArray objectAtIndex:indexPath.row] objectForKey:@"description"];
     }
     [self.activeField resignFirstResponder];
@@ -520,8 +533,13 @@ static const BOOL isCurrentLocation = YES;
                                            @"fr", @"language",
                                            @[@"establishment", @"geocode"], @"types",
                                            nil];
-        [self.webServices GEToperation:@"https://maps.googleapis.com/maps/api/place/autocomplete/json"
-                            parameters:parameters header:nil requestType:kGETAddressFromInput];
+        NSMutableDictionary *request = [NSMutableDictionary
+                                        dictionaryWithObjectsAndKeys:parameters, @"parameters",
+                                        [NSNumber numberWithInt:kGETAddressFromInput], @"requestType",
+                                        @"https://maps.googleapis.com/maps/api/place/autocomplete/json", @"URL",
+                                        nil];
+        
+        [self.webServices GEToperation:request];
     }
     else {
         textField.rightView = nil;
@@ -593,7 +611,12 @@ static const BOOL isCurrentLocation = YES;
                                        [NSString stringWithFormat:@"%f,%f", self.mapView.camera.target.latitude, self.mapView.camera.target.longitude], @"location",
                                        [NSString stringWithFormat:@"%f", radius], @"radius",
                                        nil];
-    [self.webServices GEToperation:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json" parameters:parameters header:nil requestType:kGETPOINearLocation];
+    NSMutableDictionary *request = [NSMutableDictionary
+                                    dictionaryWithObjectsAndKeys:parameters, @"parameters",
+                                    [NSNumber numberWithInt:kGETPOINearLocation], @"requestType",
+                                    @"https://maps.googleapis.com/maps/api/place/nearbysearch/json", @"URL",
+                                    nil];
+    [self.webServices GEToperation:request];
 }
 
 #pragma mark - GMSMapView delegate
@@ -639,6 +662,7 @@ static const BOOL isCurrentLocation = YES;
 
 - (IBAction)createNewIssue:(id)sender {
     CreateIssueViewController *createIssueVC = [[CreateIssueViewController alloc] init];
+    createIssueVC.delegate = self;
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:createIssueVC];
     nav.navigationBar.tintColor = [ColorFactory yellowColor];
@@ -780,11 +804,14 @@ static const BOOL isCurrentLocation = YES;
         NSMutableDictionary *header = [NSMutableDictionary
                                        dictionaryWithObjectsAndKeys:kNAVITIA_API_KEY, @"Authorization",
                                        nil];
+        NSMutableDictionary *request = [NSMutableDictionary
+                                        dictionaryWithObjectsAndKeys:parameters, @"parameters",
+                                        header, @"header",
+                                        [NSNumber numberWithInt:kGETJourney], @"requestType",
+                                        @"http://api.navitia.io/v1/journeys", @"URL",
+                                        nil];
         
-        [self.webServices GEToperation:@"http://api.navitia.io/v1/journeys"
-                            parameters:parameters
-                                header:header
-                           requestType:kGETJourney];
+        [self.webServices GEToperation:request];
     }
 }
 

@@ -13,14 +13,15 @@ typedef enum kRequestType {
     kGETDetailsStartInput,
     kGETDetailsDestinationInput,
     kGETPOINearLocation,
-    kGETJourney
+    kGETJourney,
+    kPOSTIssue
 } kRequestType;
 
 
 @protocol WebServicesDelegate <NSObject>
 
 @optional
-- (void)GEToperationDone:(kRequestType)requestType response:(NSDictionary *)response;
+- (void)operationDone:(kRequestType)requestType response:(NSDictionary *)response;
 
 @required
 - (void)internetNotAvailable:(kRequestType)requestType;
@@ -33,10 +34,8 @@ typedef enum kRequestType {
 
 @property (nonatomic, weak) id <WebServicesDelegate> delegate;
 
-- (void)GEToperation:(NSString *)url
-          parameters:(NSMutableDictionary *)parameters
-              header:(NSMutableDictionary *)header
-         requestType:(kRequestType)requestType;
+- (void)GEToperation:(NSMutableDictionary *)request;
+- (void)POSTMediaOperation:(NSMutableDictionary *)request;
 
 - (void)cancelAllOperations;
 

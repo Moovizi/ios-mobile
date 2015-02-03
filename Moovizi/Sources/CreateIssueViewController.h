@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CreateIssueDelegate <NSObject>
+
+@required
+- (void)issueCreated:(NSDictionary *)issue;
+
+@end
+
 @interface CreateIssueViewController : UIViewController
+
+@property (nonatomic, weak) id <CreateIssueDelegate> delegate;
 
 @end
